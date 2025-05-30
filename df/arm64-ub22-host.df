@@ -17,7 +17,6 @@ RUN apt -y install apache2
 RUN apt -y install libapache2-mod-wsgi-py3
 RUN apt -y install iputils-ping mtr-tiny dnsutils
 RUN apt -y install curl wget
-#RUN apt -y install strace
 
 RUN ln -sf /usr/bin/python3 /usr/local/bin/python
 
@@ -36,3 +35,11 @@ EXPOSE 22
 #CMD ["/usr/sbin/apachectl", "start"]
 
 RUN apt -y install hping3
+RUN apt -y install scapy
+RUN apt -y install php 
+RUN apt -y install libapache2-mod-php
+
+RUN mkdir -p /usr/lib/cgi-bin
+COPY html/ /var/www/html/
+COPY cgi-bin/ /usr/lib/cgi-bin/
+RUN a2enmod cgi
