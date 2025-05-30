@@ -43,3 +43,5 @@ RUN mkdir -p /usr/lib/cgi-bin
 COPY html/ /var/www/html/
 COPY cgi-bin/ /usr/lib/cgi-bin/
 RUN a2enmod cgi
+RUN mkdir -p /Programs
+COPY Programs/ /Programs
