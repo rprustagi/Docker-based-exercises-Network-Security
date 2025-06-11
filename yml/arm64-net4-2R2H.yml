@@ -80,6 +80,9 @@ services:
     image: rprustagi/arm64-ub22-host
     container_name: HB
     privileged: true
+    ports:
+      - "80:80"
+      - "2222:22"
     tty: true
     cap_add:
       - ALL

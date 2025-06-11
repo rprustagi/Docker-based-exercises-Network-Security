@@ -1,12 +1,6 @@
 version: "3"
 
 networks:
-  # filler network
-  net-99_24:
-    ipam:
-      config:
-        - subnet: 172.21.99.0/24
-
   net-1_0_29:
     ipam:
       config:
@@ -90,7 +84,6 @@ services:
       - net.ipv4.conf.eth0.rp_filter=0
       - net.ipv4.conf.eth1.rp_filter=0
       - net.ipv4.conf.eth2.rp_filter=0
-#      - net.ipv4.conf.eth3.rp_filter=0
     cap_add:
       - ALL
     networks:

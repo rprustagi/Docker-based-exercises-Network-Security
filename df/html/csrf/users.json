@@ -1,0 +1,5 @@
+{
+    "victim": "csrfvictim",
+    "ram": "csrfram",
+    "admin": "csrfadmin"
+}

@@ -45,3 +45,5 @@ COPY cgi-bin/ /usr/lib/cgi-bin/
 RUN a2enmod cgi
 RUN mkdir -p /Programs
 COPY Programs/ /Programs
+
+RUN apt -y install traceroute
