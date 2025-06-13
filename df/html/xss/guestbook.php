@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+// Require login
 if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit;
@@ -7,7 +9,7 @@ if (!isset($_SESSION['user'])) {
 
 $user = $_SESSION['user'];
 $is_admin = $_SESSION['is_admin'] ?? false;
-$file = 'messages.txt';
+$file = __DIR__ . '/messages.txt';
 
 // Handle message submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

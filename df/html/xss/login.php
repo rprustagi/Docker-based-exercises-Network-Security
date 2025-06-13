@@ -2,8 +2,9 @@
 session_start();
 $errors = [];
 
+$users = json_decode(file_get_contents(__DIR__ . '/users.json'), true);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $users = json_decode(file_get_contents('users.json'), true);
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
 
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p style="color:red"><?= htmlspecialchars($e) ?></p>
     <?php endforeach; ?>
     <form method="post">
-        Username: <input name="username" required><br>
+        Username: <input type="text" name="username" required><br>
         Password: <input type="password" name="password" required><br>
         <button type="submit">Login</button>
     </form>
