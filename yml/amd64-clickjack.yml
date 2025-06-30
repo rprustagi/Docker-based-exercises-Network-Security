@@ -1,0 +1,73 @@
+version: "2.2"
+
+networks:
+  netcj:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/24
+
+services:
+  bank1:
+    image: rprustagi/amd64-ub22-clickjack
+    container_name: bank1
+    privileged: true
+    tty: true
+    cap_add:
+        - ALL
+    networks:
+      netcj:
+        ipv4_address: 172.22.0.5
+    command: bash -c " 
+                       mkdir -p /tmp
+                       && apache2ctl start
+                       && tail -f /dev/null 
+                     "
+
+  bank2:
+    image: rprustagi/rprustagi/amd64-ub22-clickjack
+    container_name: bank2
+    privileged: true
+    tty: true
+    cap_add:
+        - ALL
+    networks:
+      netcj:
+        ipv4_address: 172.22.0.6
+    command: bash -c " 
+                       mkdir -p /tmp
+                       && apache2ctl start
+                       && tail -f /dev/null
+                     "
+
+  test:
+    image: rprustagi/rprustagi/amd64-ub22-clickjack
+    container_name: test
+    privileged: true
+    tty: true
+    cap_add:
+        - ALL
+    networks:
+      netcj:
+        ipv4_address: 172.22.0.2
+    command: bash -c " 
+                       mkdir -p /tmp
+                       && apache2ctl start
+                       && tail -f /dev/null
+                     "
+
+  attacker:
+    image: rprustagi/rprustagi/amd64-ub22-clickjack
+    container_name: attacker
+    privileged: true
+    tty: true
+    cap_add:
+        - ALL
+    networks:
+      netcj:
+        ipv4_address: 172.22.0.199
+    command: bash -c " 
+                       mkdir -p /tmp
+                       && apache2ctl start
+                       && tail -f /dev/null
+                     "
+
