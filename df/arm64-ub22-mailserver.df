@@ -1,0 +1,74 @@
+# Dockerfile for creating docker image for
+# ubuntu-22, gcc, curl, wget, net-tools, iputils, python3, ssh
+
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt update
+
+RUN apt -y install vim nano
+RUN apt -y install net-tools 
+RUN apt -y install netcat-openbsd
+RUN apt -y install tcpdump 
+#RUN apt -y install iproute2
+#RUN apt -y install gcc
+#RUN apt -y install python3
+#RUN apt -y install apache2
+#RUN apt -y install libapache2-mod-wsgi-py3
+RUN apt -y install iputils-ping 
+#RUN apt -y install mtr-tiny dnsutils
+RUN apt -y install curl 
+#RUN apt -y install wget
+
+#RUN ln -sf /usr/bin/python3 /usr/local/bin/python
+
+#RUN apt install -y openssh-server
+#RUN mkdir /var/run/sshd
+#RUN echo 'root:root' | chpasswd
+#RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+#RUN apt-get install -y rsync
+#RUN mkdir -p /root/.ssh
+#RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -N ""
+#RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+
+#EXPOSE 22
+
+#CMD ["/usr/sbin/sshd", "-D"]
+#CMD ["/usr/sbin/apachectl", "start"]
+
+#RUN apt -y install hping3
+#RUN apt -y install scapy
+#RUN apt -y install php 
+#RUN apt -y install libapache2-mod-php
+
+#RUN mkdir -p /usr/lib/cgi-bin
+#COPY html/ /var/www/html/
+#COPY cgi-bin/ /usr/lib/cgi-bin/
+#RUN a2enmod cgi
+#RUN mkdir -p /Programs
+#COPY Programs/ /Programs
+
+#RUN apt -y install traceroute
+
+# install postfix and dovecot
+RUN echo "postfix postfix/mailname string mymail.local" | debconf-set-selections && \
+    echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections && \
+    echo "dovecot-core dovecot-core/create-ssl-cert boolean true" | debconf-set-selections && \
+    echo "dovecot-core dovecot-core/ssl-cert-name string mymail.local" | debconf-set-selections
+
+RUN apt-get install -y postfix dovecot-core dovecot-imapd dovecot-pop3d mailutils
+RUN sed -i 's/^myhostname \(.*\)/myhostname = mail.myweb.internal/' /etc/postfix/main.cf
+RUN echo "mydomain = myweb.internal" >>/etc/postfix/main.cf
+RUN sed -i 's/^mydestination \(.*\)/mydestination = $myhostname, $mydomain, localhost.$mydomain, localhost/' /etc/postfix/main.cf
+RUN echo "home_mailbox = Maildir/" >>/etc/postfix/main.cf
+RUN mkdir -p /etc/skel/Maildir
+RUN apt -y install dovecot-common 
+RUN service postfix restart
+
+# configure dovecot
+RUN echo "protocols = imap pop3" >>/etc/dovecot/dovecot.conf
+RUN sed -i 's/^mail_location \(.*\)/mail_location = maildir:~\/Maildir/' /etc/dovecot/conf.d/10-mail.conf
+RUN sed -i 's/^#disable_plaintext_auth = yes/disable_plaintext_auth = no/' /etc/dovecot/conf.d/10-auth.conf
+
+RUN service dovecot restart
+ENV DEBIAN_FRONTEND=dialog
