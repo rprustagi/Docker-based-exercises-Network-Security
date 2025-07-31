@@ -21,7 +21,7 @@ srvr_addr = (ip_addr, port)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(srvr_addr)
 
-for i in range(1,count):
+for i in range(1,count+1):
     msg = chr(64 + i) * buffer
     print ("Sending: " + msg)
     sent = sock.send(msg.encode())

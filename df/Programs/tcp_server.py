@@ -2,6 +2,7 @@
 import socket
 import time
 import argparse
+from datetime import datetime
 
 parser = argparse.ArgumentParser(description="Simple Server for N/w Delays")
 parser.add_argument('-s', '--server', type=str, default="0.0.0.0")
@@ -24,7 +25,8 @@ connsock, client = sock.accept()
 while True:
   data = connsock.recv(buffer)
   if data:
-    print (data.decode())
+    current_time = datetime.now().time()
+    print (client, current_time.strftime("%H:%M:%S") + " " + data.decode())
     time.sleep(delay)
   else:
     connsock.close()
