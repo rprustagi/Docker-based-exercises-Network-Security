@@ -24,4 +24,5 @@ connsock, client = sock.accept()
 data = connsock.recv(buffer)
 print (data.decode())
 
+connsock.close()
 print("Server exiting")
