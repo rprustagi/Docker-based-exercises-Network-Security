@@ -19,6 +19,7 @@ buffer = args.buffer
 
 srvr_addr = (ip_addr, port)
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_SNDBUF, 32768)
 sock.connect(srvr_addr)
 
 for i in range(1,count+1):

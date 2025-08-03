@@ -17,6 +17,7 @@ delay = args.delay
 buffer = args.buffer
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 4096)
 srvr_addr = (ip_addr, port)
 sock.bind(srvr_addr)
 sock.listen()
