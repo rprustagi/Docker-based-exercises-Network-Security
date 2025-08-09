@@ -14,6 +14,8 @@ RUN apt -y install python3
 RUN apt -y install iputils-ping mtr-tiny dnsutils
 RUN apt -y install curl wget
 RUN apt -y install iptables
+RUN apt -y install conntrack
+RUN apt -y install iftop
 
 RUN ln -sf /usr/bin/python3 /usr/local/bin/python
 
