@@ -95,6 +95,26 @@ services:
                       && tail -f /dev/null
                      "
 
+  DMZ2:
+    image: rprustagi/arm64-ub22-host
+    container_name: DS2
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    cap_add:
+      - ALL
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.2.3
+    command: bash -c "
+                      mkdir -p /tmp
+                      && ip route delete default
+                      && ip route add default via 172.21.2.253
+                      && ip route add 192.168.3.0/24 via 172.21.2.254
+                      && hostname DS2
+                      && tail -f /dev/null
+                     "
+
   Server1:
     image: rprustagi/arm64-ub22-host
     container_name: S1
