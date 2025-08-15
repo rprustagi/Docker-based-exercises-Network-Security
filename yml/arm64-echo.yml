@@ -1,0 +1,19 @@
+version: "3.9"
+
+networks:
+  net-lan:
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+
+services:
+  Echoserver:
+    image: rprustagi/arm64-tcp-echo-server
+    hostname: echoserver
+    environment: 
+      - ECHO_PORT=5555 # Internal port for echo server
+    ports:
+      - "5555" # mapping for multiple ports assignment
+    networks:
+      net-lan:
+
