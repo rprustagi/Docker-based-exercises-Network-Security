@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  ha:
+    image: rprustagi/arm64-ub22-host
+    container_name: ha
+    cap_add:
+      - ALL
+    network_mode: none
+    privileged: true
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+  hc:
+    image: rprustagi/arm64-ub22-host
+    container_name: hc
+    cap_add:
+      - ALL
+    network_mode: none
+    privileged: true
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+  hb:
+    image: rprustagi/arm64-ub22-host
+    container_name: hb
+    cap_add:
+      - ALL
+    network_mode: none
+    privileged: true
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+  hd:
+    image: rprustagi/arm64-ub22-host
+    container_name: hd
+    cap_add:
+      - ALL
+    network_mode: none
+    privileged: true
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+  s1:
+    image: rprustagi/arm64-router
+    container_name: s1
+    network_mode: none
+    privileged: true
+    privileged: true
+    cap_add:
+      - ALL
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+  s2:
+    image: rprustagi/arm64-router
+    container_name: s2
+    privileged: true
+    network_mode: none
+    privileged: true
+    cap_add:
+      - ALL
+    command: sh -c "mkdir -p /tmp
+                   && sleep infinity
+                   "
+
+#networks:
+#  net_ha_s1:
+#    driver: bridge
+#  net_hc_s1:
+#    driver: bridge
+#  net_hb_s2:
+#    driver: bridge
+#  net_hd_s2:
+#    driver: bridge
+#  net_s1_s2:
+#    driver: bridge
+
