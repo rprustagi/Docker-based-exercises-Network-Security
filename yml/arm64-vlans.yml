@@ -50,7 +50,6 @@ services:
     container_name: s1
     network_mode: none
     privileged: true
-    privileged: true
     cap_add:
       - ALL
     command: sh -c "mkdir -p /tmp
@@ -60,7 +59,6 @@ services:
   s2:
     image: rprustagi/arm64-router
     container_name: s2
-    privileged: true
     network_mode: none
     privileged: true
     cap_add:
