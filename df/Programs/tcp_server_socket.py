@@ -9,9 +9,9 @@ parser.add_argument('-s', '--server', type=str, default="0.0.0.0", help="Server 
 parser.add_argument('-p', '--port', type=int, default=32768, help="Server port")
 parser.add_argument('-q', '--queue', type=int, default=1, help="Listen Q Size")
 parser.add_argument('-b', '--buffer', type=int, default=100, help="Buffer Size")
-parser.add_argument('--db',  type=int, default=20, help="Delay before Bind")
-parser.add_argument('--dl',  type=int, default=20, help="Delay before Listen")
-parser.add_argument('--da',  type=int, default=20, help="Delay before Accept")
+parser.add_argument('--db',  type=float, default=20, help="Delay before Bind")
+parser.add_argument('--dl',  type=float, default=20, help="Delay before Listen")
+parser.add_argument('--da',  type=float, default=20, help="Delay before Accept")
 args = parser.parse_args()
 
 port = args.port
