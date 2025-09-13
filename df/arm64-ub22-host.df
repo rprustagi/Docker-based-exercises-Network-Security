@@ -42,7 +42,11 @@ RUN apt -y install libapache2-mod-php
 RUN mkdir -p /usr/lib/cgi-bin
 COPY html/ /var/www/html/
 COPY cgi-bin/ /usr/lib/cgi-bin/
+COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod cgi
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod proxy_wstunnel
 RUN mkdir -p /Programs
 COPY Programs/ /Programs
 
