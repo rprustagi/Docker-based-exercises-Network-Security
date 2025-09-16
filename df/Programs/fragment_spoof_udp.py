@@ -9,7 +9,7 @@ if len(sys.argv) != 4:
   print("Usage: sys.argv[0] <dst IP> <dst port> <delay>")
   exit()
 
-delay = int(sys.argv[3])
+delay = float(sys.argv[3])
 ID = 32768
 ip = IP(dst=sys.argv[1], id=ID, frag=0, flags=1) # set M-bit=1
 udp = UDP(dport=int(sys.argv[2]), chksum=0)

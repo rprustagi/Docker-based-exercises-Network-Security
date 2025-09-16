@@ -6,7 +6,7 @@ import argparse
 parser = argparse.ArgumentParser(description="Simple Server for N/w Delays")
 parser.add_argument('-s', '--server', type=str, default="0.0.0.0")
 parser.add_argument('-p', '--port', type=int, default=32768)
-parser.add_argument('-d', '--delay',  type=int, default=0)
+parser.add_argument('-d', '--delay',  type=float, default=0)
 parser.add_argument('-b', '--buffer',  type=int, default=8)
 args = parser.parse_args()
 

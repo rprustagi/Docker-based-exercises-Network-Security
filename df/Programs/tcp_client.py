@@ -2,12 +2,13 @@
 import socket
 import time
 import argparse
+from datetime import datetime
 
 parser = argparse.ArgumentParser(description="Simple Server for N/w Delays")
 parser.add_argument('-s', '--server', type=str, required=True)
 parser.add_argument('-p', '--port', type=int, default=32768)
 parser.add_argument('-c', '--count', type=int, default=10)
-parser.add_argument('-d', '--delay', type=int, default=5)
+parser.add_argument('-d', '--delay', type=float, default=5)
 parser.add_argument('-b', '--buffer', type=int, default=20)
 args = parser.parse_args()
 
@@ -24,7 +25,8 @@ sock.connect(srvr_addr)
 
 for i in range(1,count+1):
     msg = chr(64 + i) * buffer
-    print ("Sending: " + msg)
+    current_time = datetime.now().time()
+    print (current_time.strftime("%H:%M:%S.%f")[:-3] + " " +"sending: " + msg)
     sent = sock.send(msg.encode())
     time.sleep(delay)
 
