@@ -49,5 +49,6 @@ RUN a2enmod proxy_http
 RUN a2enmod proxy_wstunnel
 RUN mkdir -p /Programs
 COPY Programs/ /Programs
+RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -print0 \ | xargs -0 -n1 sed -i 's/\r$//'
 
 RUN apt -y install traceroute

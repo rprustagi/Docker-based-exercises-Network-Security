@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # this program simply spoofs a ICMP Redirect to victim to send the pkt to itself
 # Assuming this program runs on A (172.21.4.199) and spoofs with following
 # victim: 172.21.4.5 (argv[1],

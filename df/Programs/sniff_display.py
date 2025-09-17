@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # this program simply captures ICMP packets and prints these
 # -------------------------------
 import sys

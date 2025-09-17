@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # this TCP server accepts one connection at a time.
 # It accepts next connection only after first client closes the connection.
 import os

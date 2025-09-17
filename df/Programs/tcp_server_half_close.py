@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import sys,socket, time
 
 srvr_addr = sys.argv[1]
