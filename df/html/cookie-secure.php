@@ -1,13 +1,13 @@
 <?php
-$ck1_name = "course";
+$ck1_name = "s_course";
 $ck1_value = "Network";
-$ck2_name = "__Secure-Subject";
+$ck2_name = "__Secure-s_Subject";
 $ck2_value = "Comp. Sc";
-$ck3_name = "__Secure-Instructor";
+$ck3_name = "__Secure-s_Instructor";
 $ck3_value = "Prof. Ram Rustagi";
 
 $path = "/";
-$domain = ".rprustagi.com";
+$domain = ".myweb.local";
 $secure = true;
 $httponly = true;
 
