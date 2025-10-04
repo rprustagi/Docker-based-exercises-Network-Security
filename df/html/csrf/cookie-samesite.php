@@ -28,8 +28,8 @@ set on your browser.
 </ul>
 </p>
 
-<h2>Experiment A: click <a href="http://bank.csrf.local/csrf/cookie-test.html">Link A</a></h2>
-<h2>Experiment B: click <a href="http://attacker.csrf.local/csrf/cookie-test.html">Link B</a></h2>
+<h2>Experiment A: click <a href="http://csrf.bank.local/csrf/cookie-test.html">Link A</a></h2>
+<h2>Experiment B: click <a href="http://csrf.attacker.local/csrf/cookie-test.html">Link B</a></h2>
 
 </body>
 </html>
