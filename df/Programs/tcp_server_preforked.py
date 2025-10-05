@@ -9,22 +9,23 @@ def process_client(ssock):
     cnt = 1
     csock, addr = ssock.accept()
     print(f"Child with pid = {pid} accepted conn from {csock}")
-    try:
-       req = csock.recv(1024)
-       print(csock, req.decode())
-       csock.send(b"Welcome");
-    except Exception as e:
-       print("Exception: {}".format(e))
-    finally:
-       csock.close()
+    while True:
+        rmsg = csock.recv(1000)
+        if not rmsg: # client has closed
+            break
+        smsg = rmsg.decode().upper()
+        csock.send(smsg.encode())
+    csock.close()
+    exit(0)
 
 def main():
-    if (len(sys.argv) < 2):
-       print("Usage: " + sys.argv[0] + " <port number>")
+    if (len(sys.argv) < 3):
+       print("Usage: " + sys.argv[0] + " <server IP> <port number>")
        exit(1)
-    port = int(sys.argv[1])
+    ipaddr = sys.argv[1]
+    port = int(sys.argv[2])
     ssock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    ssock.bind(('', port))
+    ssock.bind((ipaddr, port))
     ssock.listen(5)
 
     for i in range(NUM_CHILDREN):

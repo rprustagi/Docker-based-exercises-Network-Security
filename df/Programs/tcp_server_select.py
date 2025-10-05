@@ -2,14 +2,20 @@
 # this TCP server accepts one connection at a time.
 # It accepts next connection only after first client closes the connection.
 import os
+import sys
 from socket import *
 from select import *
 import errno
 import time
 
-serverPort = int(os.getenv("ECHO_PORT", 12345))
+if (len(sys.argv) < 3):
+  print("Usage: " + sys.argv[0] + " <server IP> <port number>")
+  exit(1)
+ipaddr = sys.argv[1]
+port = int(sys.argv[2])
+
 lsock = socket(AF_INET, SOCK_STREAM)
-lsock.bind(('', serverPort))
+lsock.bind((ipaddr, port))
 lsock.listen(1)
 
 # create a list which will keep track of accepted connections
@@ -45,7 +51,8 @@ while True:
             try:
                 rmsg = rsock.recv(1000)
                 rmsg = rmsg.decode('ascii')
-                if (rmsg.lower() == "exit") or (len(rmsg) == 0):
+                if (rmsg.lower().strip() == "exit") or (len(rmsg) == 0):
+                    print ("Exiting:", rsock.getpeername() )
                     rsock.close()
                     csocks.remove(rsock)
                 else:
