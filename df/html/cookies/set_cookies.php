@@ -1,36 +1,29 @@
 <?php
-// csrf.bank.local/set_cookies.php
 
 // Normal cookie (default Lax in modern browsers)
-setcookie("Ck_bank_normal", "Normal Cookie", [
-    "path" => "/",
-    "samesite" => "",
+setcookie("Ck_time", "Expiry Cookie", [
+    "expires" => time() + 30
 ]);
 
 // Lax cookie
-setcookie("Ck_bank_Lax", "Lax Cookie", [
-    "path" => "/",
-    "samesite" => "Lax",
+setcookie("Ck_path", "Path Cookie", [
+    "path" => "/path"
 ]);
 
 // Strict cookie
-setcookie("Ck_bank_Strict", "Strict Cookie", [
-    "path" => "/",
-    "samesite" => "Strict",
+setcookie("Ck_domain", "Domain Cookie", [
+    "domain" => "xyz.myweb.local"
 ]);
 
 // None cookie (requires Secure)
-setcookie("Ck_bank_none", "None Cookie", [
-    "path" => "/",
-    "domain" => "csrf.bank.local",
-    "samesite" => "None",
+setcookie("Ck_secure", "Secure Cookie", [
     "HttpOnly" => true,
     "secure" => true
 ]);
 
 echo "Following Cookies set!<p>";
-echo "Ck_bank_normal = Normal Cookie<p>";
-echo "Ck_bank_Lax = Lax Cookie!<p>";
-echo "Ck_bank_Strict = Strict Cookie!<p>";
-echo "Ck_bank_None = None Cookie!<p>";
+echo "Ck_time = Expiry Cookie<p>";
+echo "Ck_path = Path Cookie!<p>";
+echo "Ck_domain = Domain Cookie!<p>";
+echo "Ck_secure = Secure Cookie!<p>";
 ?>
