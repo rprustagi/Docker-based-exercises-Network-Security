@@ -13,7 +13,7 @@ csock = socket(AF_INET, SOCK_STREAM)
 csock.connect((srvrip, srvrport))
 
 for i in range(3): # communicates 3 msgs
-  msg = input("enter text:")
+  msg = input("enter text: ")
   csock.send(msg.encode())
   rcvdmsg = csock.recv(1000) 
   print(rcvdmsg.decode())
