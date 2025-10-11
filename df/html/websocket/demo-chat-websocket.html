@@ -26,6 +26,7 @@ This demo shows that a web server can push data to a browser without browser mak
     let name = document.getElementById("name");
     let chatmsg = document.getElementById("msg");
     socket.send(name.value + ": " + chatmsg.value);
+    name.value = "";
     input.value = "";
   }
 </script>
