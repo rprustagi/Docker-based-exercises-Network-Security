@@ -33,6 +33,7 @@ services:
         ipv4_address: 172.21.46.253
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname R1
                       && ip route delete default
                       && ip route add default via 172.21.46.254
                       && tail -f /dev/null
@@ -54,6 +55,7 @@ services:
         ipv4_address: 172.21.47.254
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname R2
                       && ip route delete default
                       && ip route add default via 172.21.46.253
                       && tail -f /dev/null
@@ -71,6 +73,7 @@ services:
         ipv4_address: 172.21.45.5
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname HA
                       && ip route delete default
                       && ip route add default via 172.21.45.254
                       && tail -f /dev/null
@@ -88,6 +91,7 @@ services:
         ipv4_address: 172.21.45.7
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname HC
                       && ip route delete default
                       && ip route add default via 172.21.45.254
                       && tail -f /dev/null
@@ -107,6 +111,7 @@ services:
         ipv4_address: 172.21.47.5
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname HB
                       && ip route delete default
                       && ip route add default via 172.21.47.254
                       && tail -f /dev/null
@@ -124,6 +129,7 @@ services:
         ipv4_address: 172.21.47.7
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname HD
                       && ip route delete default
                       && ip route add default via 172.21.47.254
                       && tail -f /dev/null
