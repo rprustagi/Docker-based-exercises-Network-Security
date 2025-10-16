@@ -18,12 +18,12 @@ networks:
 
 services:
   Router1:
-    image: rprustagi/arm64-router
+    image: rprustagi/amd64-ub22-host
     container_name: R1
     privileged: true
     tty: true
     sysctls:
-      - net.ipv4.ip_forward=1
+      - net.ipv4.ip_forward=0
     cap_add:
       - ALL
     networks:
@@ -34,13 +34,13 @@ services:
     command: bash -c "
                       mkdir -p /tmp
                       && hostname R1
-                      && ip route delete default
-                      && ip route add default via 172.21.46.254
+                      && ip route add 172.21.47.0/24 via 172.21.46.254
+                      && /Programs/reorder_drop.py
                       && tail -f /dev/null
                      "
 
   Router2:
-    image: rprustagi/arm64-router
+    image: rprustagi/amd64-ub22-host
     container_name: R2
     privileged: true
     tty: true
@@ -56,13 +56,12 @@ services:
     command: bash -c "
                       mkdir -p /tmp
                       && hostname R2
-                      && ip route delete default
-                      && ip route add default via 172.21.46.253
+                      && ip route add 172.21.45.0/24 via 172.21.46.253
                       && tail -f /dev/null
                      "
 
   Host1:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HA
     privileged: true
     tty: true
@@ -74,30 +73,12 @@ services:
     command: bash -c "
                       mkdir -p /tmp
                       && hostname HA
-                      && ip route delete default
-                      && ip route add default via 172.21.45.254
+                      && ip route add 172.21.47.0/24 via 172.21.45.254
                       && tail -f /dev/null
                      "
 
-  Host3:
-    image: rprustagi/arm64-ub22-host
-    container_name: HC
-    privileged: true
-    tty: true
-    cap_add:
-      - ALL
-    networks:
-      net4-45:
-        ipv4_address: 172.21.45.7
-    command: bash -c "
-                      mkdir -p /tmp
-                      && hostname HC
-                      && ip route delete default
-                      && ip route add default via 172.21.45.254
-                      && tail -f /dev/null
-                     "
   Host2:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HB
     privileged: true
     ports:
@@ -112,26 +93,24 @@ services:
     command: bash -c "
                       mkdir -p /tmp
                       && hostname HB
-                      && ip route delete default
-                      && ip route add default via 172.21.47.254
+                      && ip route add 172.21.45.0/24 via 172.21.47.254
                       && tail -f /dev/null
                      "
 
-  Host4:
-    image: rprustagi/arm64-ub22-host
-    container_name: HD
+  Host3:
+    image: rprustagi/amd64-ub22-host
+    container_name: HX
     privileged: true
     tty: true
     cap_add:
       - ALL
     networks:
       net4-47:
-        ipv4_address: 172.21.47.7
+        ipv4_address: 172.21.47.99
     command: bash -c "
                       mkdir -p /tmp
-                      && hostname HD
-                      && ip route delete default
-                      && ip route add default via 172.21.47.254
+                      && hostname HX
+                      && ip route add 172.21.45.0/24 via 172.21.47.254
                       && tail -f /dev/null
                      "
 
