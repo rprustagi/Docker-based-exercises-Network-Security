@@ -24,6 +24,10 @@ services:
     tty: true
     sysctls:
       - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.send_redirects=1
+      - net.ipv4.conf.default.send_redirects=1
+      - net.ipv4.conf.eth0.send_redirects=1
+      - net.ipv4.conf.eth1.send_redirects=1
     cap_add:
       - ALL
     networks:
@@ -106,7 +110,7 @@ services:
                       mkdir -p /tmp
                       && hostname HA
                       && ip route delete default
-                      && ip route add default via 172.21.45.253
+                      && ip route add default via 172.21.45.254
                       && tail -f /dev/null
                      "
 
