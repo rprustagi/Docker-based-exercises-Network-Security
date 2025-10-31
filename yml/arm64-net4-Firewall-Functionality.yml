@@ -30,9 +30,9 @@ services:
         ipv4_address: 172.21.2.253
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname GW
                       && ip route delete default
                       && ip route add 192.168.3.0/24 via 172.21.2.254
-                      && hostname GW
                       && tail -f /dev/null
                      "
   Firewall:
@@ -50,9 +50,9 @@ services:
         ipv4_address: 192.168.3.254
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname FW
                       && ip route delete default
                       && ip route add default via 172.21.2.253
-                      && hostname FW
                       && tail -f /dev/null
                      "
 
@@ -69,9 +69,9 @@ services:
         ipv4_address: 172.21.4.5
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname User
                       && ip route add 172.21.2.0/24 via 172.21.4.254
                       && ip route add 192.168.3.0/24 via 172.21.4.254
-                      && hostname User
                       && tail -f /dev/null
                      "
 
@@ -88,10 +88,10 @@ services:
         ipv4_address: 172.21.2.2
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname DS1
                       && ip route delete default
                       && ip route add default via 172.21.2.253
                       && ip route add 192.168.3.0/24 via 172.21.2.254
-                      && hostname DS1
                       && tail -f /dev/null
                      "
 
@@ -108,10 +108,10 @@ services:
         ipv4_address: 172.21.2.3
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname DS2
                       && ip route delete default
                       && ip route add default via 172.21.2.253
                       && ip route add 192.168.3.0/24 via 172.21.2.254
-                      && hostname DS2
                       && tail -f /dev/null
                      "
 
@@ -129,9 +129,9 @@ services:
         ipv4_address: 192.168.3.5
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname S1
                       && ip route delete default
                       && ip route add default via 192.168.3.254
-                      && hostname S1
                       && tail -f /dev/null
                      "
 
@@ -149,9 +149,9 @@ services:
         ipv4_address: 192.168.3.6
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname S2
                       && ip route delete default
                       && ip route add default via 192.168.3.254
-                      && hostname S2
                       && tail -f /dev/null
                      "
 
@@ -169,9 +169,9 @@ services:
         ipv4_address: 192.168.3.7
     command: bash -c "
                       mkdir -p /tmp
+                      && hostname S3
                       && ip route delete default
                       && ip route add default via 192.168.3.254
-                      && hostname S3
                       && tail -f /dev/null
                      "
 

@@ -13,8 +13,8 @@ if len(sys.argv) != 6:
   print("Usage: sys.argv[0]\n" 
          + "<victim IP> \n" 
          + "<victim's router IP>\n" 
-		 + "<malicious router IP>\n" +
-		 + "<destination host IP>"
+         + "<malicious router IP>\n" 
+         + "<destination host IP>\n"
          + "<icmp id>"
          )
   exit()

@@ -1,17 +1,17 @@
 version: "3.0"
 
 networks:
-  net4-4:
+  net4-45:
     ipam:
       config:
         - subnet: 172.21.45.0/24
 
-  net4-2:
+  net4-46:
     ipam:
       config:
         - subnet: 172.21.46.0/24
 
-  net4-5:
+  net4-47:
     ipam:
       config:
         - subnet: 172.21.47.0/24
@@ -31,9 +31,9 @@ services:
     cap_add:
       - ALL
     networks:
-      net4-4:
+      net4-45:
         ipv4_address: 172.21.45.254
-      net4-2:
+      net4-46:
         ipv4_address: 172.21.46.254
     command: bash -c "
                       mkdir -p /tmp
@@ -53,9 +53,9 @@ services:
     cap_add:
       - ALL
     networks:
-      net4-4:
+      net4-45:
         ipv4_address: 172.21.45.253
-      net4-5:
+      net4-47:
         ipv4_address: 172.21.47.253
     command: bash -c "
                       mkdir -p /tmp
@@ -77,8 +77,10 @@ services:
     cap_add:
       - ALL
     networks:
-      net4-4:
+      net4-45:
         ipv4_address: 172.21.45.252
+      net4-47:
+        ipv4_address: 172.21.47.252
     command: bash -c "
                       mkdir -p /tmp
                       && hostname RX
@@ -104,7 +106,7 @@ services:
       - net.ipv4.conf.default.rp_filter=0
       - net.ipv4.conf.eth0.rp_filter=0
     networks:
-      net4-4:
+      net4-45:
         ipv4_address: 172.21.45.5
     command: bash -c "
                       mkdir -p /tmp
@@ -124,7 +126,7 @@ services:
     cap_add:
       - ALL
     networks:
-      net4-5:
+      net4-47:
         ipv4_address: 172.21.47.5
     command: bash -c "
                       mkdir -p /tmp
@@ -144,8 +146,10 @@ services:
     cap_add:
       - ALL
     networks:
-      net4-4:
+      net4-45:
         ipv4_address: 172.21.45.199
+      net4-47:
+        ipv4_address: 172.21.47.199
     command: bash -c "
                       mkdir -p /tmp
                       && hostname HX
