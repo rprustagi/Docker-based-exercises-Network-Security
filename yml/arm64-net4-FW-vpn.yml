@@ -4,7 +4,7 @@ networks:
   net4-net:
     ipam:
       config:
-        - subnet: 93.184.215.0/24
+        - subnet: 93.184.214.0/24
 
   net4-home:
     ipam:
@@ -27,14 +27,14 @@ services:
       - ALL
     networks:
       net4-net:
-        ipv4_address: 93.184.215.254
+        ipv4_address: 93.184.214.254
       net4-home:
         ipv4_address: 172.21.4.253
     command: bash -c "
                       mkdir -p /tmp
                       && hostname GW
                       && ip route delete default
-                      && ip route add default via 93.184.215.5
+                      && ip route add default via 93.184.214.14
                       && ip route add 192.168.3.0/24 via 172.21.4.254
                       && tail -f /dev/null
                      "
@@ -71,12 +71,12 @@ services:
       - ALL
     networks:
       net4-net:
-        ipv4_address: 93.184.215.14
+        ipv4_address: 93.184.214.14
     command: bash -c "
                       mkdir -p /tmp
                       && hostname Net
-                      && ip route add 172.21.4.0/24 via 93.184.215.254
-                      && ip route add 192.168.3.0/24 via 93.184.215.254
+                      && ip route add 172.21.4.0/24 via 93.184.214.254
+                      && ip route add 192.168.3.0/24 via 93.184.214.254
                       && service ssh start
                       && apache2ctl start
                       && tail -f /dev/null
