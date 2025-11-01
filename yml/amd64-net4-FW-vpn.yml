@@ -185,7 +185,6 @@ services:
       - ALL
     devices:
        - "/dev/net/tun:/dev/net/tun"
-    privileged: true
     sysctls:
       - net.ipv4.ip_forward=0
     networks:
@@ -209,7 +208,6 @@ services:
       - ALL
     devices:
        - "/dev/net/tun:/dev/net/tun"
-    privileged: true
     sysctls:
       - net.ipv4.ip_forward=0
     networks:
