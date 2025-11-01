@@ -62,7 +62,7 @@ services:
                      "
 
   Internet:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: Net
     tty: true
     sysctls:
@@ -82,7 +82,7 @@ services:
                       && tail -f /dev/null
                      "
   Home1:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: H1
     tty: true
     privileged: true
@@ -106,7 +106,7 @@ services:
                      "
 
   Home2:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: H2
     tty: true
     privileged: true
@@ -130,7 +130,7 @@ services:
                      "
 
   Home3:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: H3
     tty: true
     privileged: true
@@ -154,7 +154,7 @@ services:
                      "
 
   Server1:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: S1
     tty: true
     privileged: true
@@ -177,7 +177,7 @@ services:
                      "
 
   Server2:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: S2
     tty: true
     privileged: true
@@ -200,7 +200,7 @@ services:
                      "
 
   Server3:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/arm64-ub22-vpn
     container_name: S3
     tty: true
     privileged: true
