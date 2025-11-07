@@ -34,7 +34,7 @@ RUN echo '<Location "/server-status">' >>/etc/apache2/apache2.conf
 RUN echo '  SetHandler server-status' >>/etc/apache2/apache2.conf
 RUN echo '  Require local' >>/etc/apache2/apache2.conf
 RUN echo '</Location>' >>/etc/apache2/apache2.conf
-COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY conf/000-proxy.conf /etc/apache2/sites-available/000-default.conf
 
 RUN a2enmod cgi
 RUN a2enmod proxy
