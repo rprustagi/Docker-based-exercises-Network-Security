@@ -102,6 +102,7 @@ services:
                       && ip route add default via 172.21.4.253
                       && ip route add 192.168.3.0/24 via 172.21.4.254
                       && service ssh start
+                      && apache2ctl start
                       && tail -f /dev/null
                      "
 
@@ -126,6 +127,7 @@ services:
                       && ip route add default via 172.21.4.253
                       && ip route add 192.168.3.0/24 via 172.21.4.254
                       && service ssh start
+                      && apache2ctl start
                       && tail -f /dev/null
                      "
 
@@ -150,6 +152,7 @@ services:
                       && ip route add default via 172.21.4.253
                       && ip route add 192.168.3.0/24 via 172.21.4.254
                       && service ssh start
+                      && apache2ctl start
                       && tail -f /dev/null
                      "
 
@@ -173,6 +176,7 @@ services:
                       && ip route delete default
                       && ip route add default via 192.168.3.254
                       && service ssh start
+                      && apache2ctl start
                       && tail -f /dev/null
                      "
 
@@ -196,6 +200,7 @@ services:
                       && ip route delete default
                       && ip route add default via 192.168.3.254
                       && service ssh start
+                      && apache2ctl start
                       && tail -f /dev/null
                      "
 
