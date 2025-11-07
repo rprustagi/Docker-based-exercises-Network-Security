@@ -31,18 +31,6 @@ networks:
       config:
         - subnet: 172.21.6.0/23
 
-# This is overlapping network. Can't be configured in yml
-#  net-5_160_27:
-#    ipam:
-#      config:
-#        - subnet: 172.21.5.160/27
-
-# This is overlapping network. Can't be configured in yml
-#  net-6_0_26:
-#    ipam:
-#      config:
-#        - subnet: 172.21.6.0/26
-
 services:
   R1:
     image: rprustagi/amd64-router
@@ -65,8 +53,6 @@ services:
         ipv4_address: 172.21.3.10
       net-4_0_24:
         ipv4_address: 172.21.4.2
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname R1
                       && tail -f /dev/null
@@ -95,8 +81,6 @@ services:
         ipv4_address: 172.21.5.2
       net-6_0_23:
         ipv4_address: 172.21.6.99
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname R2
                       && tail -f /dev/null
@@ -131,8 +115,6 @@ services:
         ipv4_address: 172.21.6.2
       net-5_0_24:
         ipv4_address: 172.21.5.99
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname R3
                       && tail -f /dev/null
@@ -154,8 +136,6 @@ services:
     networks:
       net-4_0_24:
         ipv4_address: 172.21.4.5
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HA
                       && tail -f /dev/null
@@ -171,8 +151,6 @@ services:
     networks:
       net-5_0_24:
         ipv4_address: 172.21.5.5
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HB
                       && tail -f /dev/null
@@ -188,8 +166,6 @@ services:
     networks:
       net-6_0_23:
         ipv4_address: 172.21.6.5
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HC
                       && tail -f /dev/null
@@ -207,8 +183,6 @@ services:
     networks:
       net-5_0_24:
         ipv4_address: 172.21.5.199
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HD
                       && tail -f /dev/null
@@ -230,8 +204,6 @@ services:
     networks:
       net-6_0_23:
         ipv4_address: 172.21.6.199
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HE
                       && tail -f /dev/null
@@ -253,8 +225,6 @@ services:
     networks:
       net-6_0_23:
         ipv4_address: 172.21.7.66
-    volumes:
-      - ./scripts:/scripts
     command: bash -c "ip route delete default
                       && hostname HF
                       && tail -f /dev/null
