@@ -6,22 +6,18 @@ FROM ubuntu
 RUN apt update
 
 RUN apt -y install vim nano
-#RUN apt -y install netcat net-tools tcpdump iproute2
 RUN apt -y install net-tools 
 RUN apt -y install netcat-openbsd
 RUN apt -y install tcpdump 
 RUN apt -y install iproute2
-#RUN apt -y install gcc
 RUN apt -y install python3
 RUN apt -y install apache2
 RUN apt -y install libapache2-mod-wsgi-py3
 RUN apt -y install iputils-ping mtr-tiny dnsutils
 RUN apt -y install curl wget
 
-RUN ln -sf /usr/bin/python3 /usr/local/bin/python
-
 RUN apt install -y openssh-server
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN apt-get install -y rsync
@@ -31,11 +27,8 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
 EXPOSE 22
 
-#CMD ["/usr/sbin/sshd", "-D"]
-#CMD ["/usr/sbin/apachectl", "start"]
-
 RUN apt -y install hping3
-RUN apt -y install scapy
+RUN apt update && apt -y install python3-scapy 
 RUN apt -y install php 
 RUN apt -y install libapache2-mod-php
 
@@ -44,9 +37,6 @@ COPY html/ /var/www/html/
 COPY cgi-bin/ /usr/lib/cgi-bin/
 COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf
 RUN a2enmod cgi
-RUN a2enmod proxy
-RUN a2enmod proxy_http
-RUN a2enmod proxy_wstunnel
 RUN mkdir -p /Programs
 COPY Programs/ /Programs
 RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -print0 | xargs -0 -n1 sed -i 's/\r$//'

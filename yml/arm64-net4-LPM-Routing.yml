@@ -68,7 +68,7 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
-                      && ip route add default via 172.21.3.14
+                      && hostname R1
                       && tail -f /dev/null
                      "
 
@@ -98,8 +98,8 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
-                      && ip route add default via 172.21.3.22
-                     && tail -f /dev/null
+                      && hostname R2
+                      && tail -f /dev/null
                      "
 # add the following manually since docker does not permit overlapping networks
 # assuming eth3 is the interface to which an address 172.21.6.99 belongs
@@ -134,8 +134,8 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
-                      && ip route add default via 172.21.3.2
-                     && tail -f /dev/null
+                      && hostname R3
+                      && tail -f /dev/null
                      "
 # use the network interface corresponding to IP 172.21.5.99/24
 # assuming eth2 is the interface to which this address belongs
@@ -157,7 +157,7 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
-                      && ip route add default via 172.21.4.2
+                      && hostname HA
                       && tail -f /dev/null
                      "
 
@@ -174,7 +174,7 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
-                     && ip route add default via 172.21.5.2
+                      && hostname HB
                       && tail -f /dev/null
                      "
 
@@ -190,9 +190,9 @@ services:
         ipv4_address: 172.21.6.5
     volumes:
       - ./scripts:/scripts
-    command: bash -c " ip route delete default
-                       && ip route add default via 172.21.6.2
-                       && tail -f /dev/null
+    command: bash -c "ip route delete default
+                      && hostname HC
+                      && tail -f /dev/null
                      "
 # below route is needed to reach smaller overlapping subnet
 # ip route add 172.21.7.0/26 via 172.21.6.2
@@ -210,6 +210,7 @@ services:
     volumes:
       - ./scripts:/scripts
     command: bash -c "ip route delete default
+                      && hostname HD
                       && tail -f /dev/null
                      "
 # add the following manually since docker does not permit overlapping networks
@@ -231,8 +232,9 @@ services:
         ipv4_address: 172.21.6.199
     volumes:
       - ./scripts:/scripts
-    command: bash -c " ip route delete default
-                       && tail -f /dev/null
+    command: bash -c "ip route delete default
+                      && hostname HE
+                      && tail -f /dev/null
                      "
 # add the following manually since docker does not permit overlapping networks
 # assuming eth0 is the interface to which an address 172.21.6.199 belongs
@@ -253,9 +255,9 @@ services:
         ipv4_address: 172.21.7.66
     volumes:
       - ./scripts:/scripts
-    command: bash -c " ip route delete default
-                       && ip route add default via 172.21.6.2
-                       && tail -f /dev/null
+    command: bash -c "ip route delete default
+                      && hostname HF
+                      && tail -f /dev/null
                      "
 # below route is needed to reach smaller overlapping subnet
 # ip route add 172.21.7.0/26 via 172.21.6.2
