@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   ha:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HA
     cap_add:
       - ALL
@@ -14,7 +14,7 @@ services:
                    "
 
   hc:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HC
     cap_add:
       - ALL
@@ -26,7 +26,7 @@ services:
                    "
 
   hb:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HB
     cap_add:
       - ALL
@@ -38,7 +38,7 @@ services:
                    "
 
   hd:
-    image: rprustagi/arm64-ub22-host
+    image: rprustagi/amd64-ub22-host
     container_name: HD
     cap_add:
       - ALL
@@ -50,7 +50,7 @@ services:
                    "
 
   s1:
-    image: rprustagi/arm64-router
+    image: rprustagi/amd64-router
     container_name: S1
     network_mode: none
     privileged: true
@@ -62,7 +62,7 @@ services:
                    "
 
   s2:
-    image: rprustagi/arm64-router
+    image: rprustagi/amd64-router
     container_name: S2
     network_mode: none
     privileged: true
