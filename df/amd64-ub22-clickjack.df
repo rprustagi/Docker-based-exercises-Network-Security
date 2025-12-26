@@ -1,0 +1,7 @@
+# Dockerfile for creating docker image for clickjack attack
+#
+
+FROM rprustagi/amd64-ub22-host
+RUN mkdir -p /var/www/html/clickjack
+COPY clickjack/ /var/www/html/clickjack
+

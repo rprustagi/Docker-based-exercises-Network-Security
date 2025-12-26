@@ -1,0 +1,177 @@
+networks:
+  net4-net:
+    ipam:
+      config:
+        - subnet: 172.21.4.0/24
+
+  net4-DMZ:
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+
+  net4-Corp:
+    ipam:
+      config:
+        - subnet: 192.168.3.0/24
+
+services:
+  Gateway:
+    image: rprustagi/arm64-router
+    container_name: GW
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+    cap_add:
+      - ALL
+    networks:
+      net4-net:
+        ipv4_address: 172.21.4.254
+      net4-DMZ:
+        ipv4_address: 172.21.2.253
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname GW
+                      && ip route delete default
+                      && ip route add 192.168.3.0/24 via 172.21.2.254
+                      && tail -f /dev/null
+                     "
+  Firewall:
+    image: rprustagi/arm64-router
+    container_name: FW
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=1
+    cap_add:
+      - ALL
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.2.254
+      net4-Corp:
+        ipv4_address: 192.168.3.254
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname FW
+                      && ip route delete default
+                      && ip route add default via 172.21.2.253
+                      && tail -f /dev/null
+                     "
+
+  User:
+    image: rprustagi/arm64-ub22-host
+    container_name: User
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    cap_add:
+      - ALL
+    networks:
+      net4-net:
+        ipv4_address: 172.21.4.5
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname User
+                      && ip route add 172.21.2.0/24 via 172.21.4.254
+                      && ip route add 192.168.3.0/24 via 172.21.4.254
+                      && tail -f /dev/null
+                     "
+
+  DMZ1:
+    image: rprustagi/arm64-ub22-host
+    container_name: DS1
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    cap_add:
+      - ALL
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.2.2
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname DS1
+                      && ip route delete default
+                      && ip route add default via 172.21.2.253
+                      && ip route add 192.168.3.0/24 via 172.21.2.254
+                      && tail -f /dev/null
+                     "
+
+  DMZ2:
+    image: rprustagi/arm64-ub22-host
+    container_name: DS2
+    tty: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    cap_add:
+      - ALL
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.2.3
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname DS2
+                      && ip route delete default
+                      && ip route add default via 172.21.2.253
+                      && ip route add 192.168.3.0/24 via 172.21.2.254
+                      && tail -f /dev/null
+                     "
+
+  Server1:
+    image: rprustagi/arm64-ub22-host
+    container_name: S1
+    tty: true
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    cap_add:
+      - ALL
+    networks:
+      net4-Corp:
+        ipv4_address: 192.168.3.5
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname S1
+                      && ip route delete default
+                      && ip route add default via 192.168.3.254
+                      && tail -f /dev/null
+                     "
+
+  Server2:
+    image: rprustagi/arm64-ub22-host
+    container_name: S2
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    networks:
+      net4-Corp:
+        ipv4_address: 192.168.3.6
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname S2
+                      && ip route delete default
+                      && ip route add default via 192.168.3.254
+                      && tail -f /dev/null
+                     "
+
+  Server3:
+    image: rprustagi/arm64-ub22-host
+    container_name: S3
+    tty: true
+    cap_add:
+      - ALL
+    privileged: true
+    sysctls:
+      - net.ipv4.ip_forward=0
+    networks:
+      net4-Corp:
+        ipv4_address: 192.168.3.7
+    command: bash -c "
+                      mkdir -p /tmp
+                      && hostname S3
+                      && ip route delete default
+                      && ip route add default via 192.168.3.254
+                      && tail -f /dev/null
+                     "
+

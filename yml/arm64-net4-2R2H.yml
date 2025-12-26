@@ -35,6 +35,7 @@ services:
                       mkdir -p /tmp
                       && ip route delete default
                       && ip route add default via 172.21.46.254
+                      && hostname R1
                       && tail -f /dev/null
                      "
 
@@ -56,6 +57,7 @@ services:
                       mkdir -p /tmp
                       && ip route delete default
                       && ip route add default via 172.21.46.253
+                      && hostname R2
                       && tail -f /dev/null
                      "
 
@@ -73,6 +75,7 @@ services:
                       mkdir -p /tmp
                       && ip route delete default
                       && ip route add default via 172.21.45.254
+                      && hostname HA
                       && tail -f /dev/null
                      "
 
@@ -80,6 +83,9 @@ services:
     image: rprustagi/arm64-ub22-host
     container_name: HB
     privileged: true
+    ports:
+      - "80:80"
+      - "2222:22"
     tty: true
     cap_add:
       - ALL
@@ -90,6 +96,7 @@ services:
                       mkdir -p /tmp
                       && ip route delete default
                       && ip route add default via 172.21.47.254
+                      && hostname HB
                       && tail -f /dev/null
                      "
 

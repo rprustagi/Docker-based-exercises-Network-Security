@@ -1,0 +1,37 @@
+FROM rprustagi/arm64-ub22-mailserver
+
+LABEL maintainer="rprustagi@gmail.com"
+
+# Install Apache, PHP, and Roundcube dependencies
+ENV DEBIAN_FRONTEND=noninteractive 
+RUN apt update && \
+    apt install -y \
+    apache2 \
+    php php-mysql php-intl php-curl php-xml php-mbstring php-imagick php-zip php-cli php-common \
+    php-gd php-bcmath php-json php-net-socket php-net-smtp php-mail-mime \
+    php-sqlite3 sqlite3 \
+    roundcube roundcube-core roundcube-plugins roundcube-plugins-extra && \
+    apt clean
+
+# Enable Apache config
+RUN a2enconf roundcube && a2enmod rewrite
+
+# Configure Apache to serve Roundcube from /webmail
+RUN ln -s /var/lib/roundcube /var/www/html/webmail
+
+# Configure Roundcube to use SQLite
+RUN mkdir -p /var/lib/roundcube/db && \
+    touch /var/lib/roundcube/db/sqlite.db && \
+    chown -R www-data:www-data /var/lib/roundcube/db && \
+    echo "<?php \$config['db_dsnw'] = 'sqlite:////var/lib/roundcube/db/sqlite.db';" > /etc/roundcube/debian-db-roundcube.php
+
+# Expose webmail port
+EXPOSE 80
+
+# Start services
+CMD service postfix start && \
+    service dovecot start && \
+    service apache2 start && \
+    tail -f /dev/null
+
+ENV DEBIAN_FRONTEND=dialog

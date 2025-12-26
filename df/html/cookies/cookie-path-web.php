@@ -1,12 +1,12 @@
 <?php
-$ck1_name = "course";
+$ck1_name = "a_course";
 $ck1_value = "Network";
-$ck2_name = "Subject";
+$ck2_name = "a_Subject";
 $ck2_value = "Comp. Sc";
-$ck3_name = "Instructor";
+$ck3_name = "a_Instructor";
 $ck3_value = "Prof. Ram Rustagi";
 
-$domain = "workshops.rprustagi.com";
+$domain = "workshops.myweb.local";
 $secure = true;
 $httponly = true;
 

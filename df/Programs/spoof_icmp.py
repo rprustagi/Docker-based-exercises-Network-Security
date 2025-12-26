@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # this program simply spoofs a ICMP with different src IP
 # Assuming this program runs on A (172.21.0.11) and spoofs with following
 # src IP=172.21.0.12 (host B) with destination of 172.21.0.13 (host C)

@@ -1,13 +1,17 @@
 <html>
     <head>
-          <title>Demo Page JS </title>
+          <title>Demo JS Defacing </title>
     </head>
-    <body> <h1>Learn Javascript Sandboxing</h1>
-               Welcome to experiential learning of Javascripting.
-    <p>Hello </p><p id="demo">Demo for dynamic change of page content </p>
+    <body> <h1>Learn Javascript Dynamic Content Change</h1>
+    Hello <p id="orgdemo">Demo for dynamic change of page content </p>
+    Hello <b><p id="demo">Demo for dynamic change of page content </p></b>
 
 <h2>Updating DOM elements</h1>
-    <script>document.getElementById('demo').innerHTML="My World of dynamic content change!";
+    <button onclick="changeContent()">Click to see changed content</button>
+    <script>
+      function changeContent() {
+          document.getElementById('demo').innerHTML = " The Content has been Defaced!";
+      }
     </script>
 </body>
 </html>

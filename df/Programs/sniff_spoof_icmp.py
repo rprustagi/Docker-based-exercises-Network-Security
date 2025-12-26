@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #----------------------------------------------------
 # this program processes ICMP Echo Request from specified source
 # and generates ICMP Echo Reply

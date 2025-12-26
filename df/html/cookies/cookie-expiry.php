@@ -1,9 +1,9 @@
 <?php
-$ck1_name = "course";
+$ck1_name = "e_course";
 $ck1_value = "Network";
-$ck2_name = "Subject";
+$ck2_name = "e_Subject";
 $ck2_value = "Comp. Sc";
-$ck3_name = "Instructor";
+$ck3_name = "e_Instructor";
 $ck3_value = "Prof. Ram Rustagi";
 
 setcookie($ck1_name, $ck1_value, time() + (30));

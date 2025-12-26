@@ -1,0 +1,39 @@
+version: "3"
+
+networks:
+  net-int:
+    ipam:
+      config:
+        - subnet: 172.21.1.0/24
+  net-lan:
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+
+services:
+  echoserver:
+    image: rprustagi/arm64-tcp-echo-server
+    hostname: echoserver
+    environment: 
+      - ECHO_PORT=5555 # Internal port for echo server
+    networks:
+      net-lan:
+
+  loadbalancer:
+    image: rprustagi/arm64-nginx-lb-echo
+    hostname: loadbalencer
+    networks:
+      net-lan:
+        ipv4_address: 172.21.2.254
+      net-int:
+        ipv4_address: 172.21.1.254
+    depends_on:
+      - echoserver
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./nginx_lb_echo.conf:/etc/nginx/nginx.conf:ro
+    command: bash -c "nginx 
+                     && tail -f /dev/null
+                     "
+

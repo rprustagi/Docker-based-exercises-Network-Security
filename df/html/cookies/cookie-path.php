@@ -1,9 +1,9 @@
 <?php
-$ck1_name = "course";
+$ck1_name = "p_course";
 $ck1_value = "Network";
-$ck2_name = "Subject";
+$ck2_name = "p_Subject";
 $ck2_value = "Comp. Sc";
-$ck3_name = "Instructor";
+$ck3_name = "p_Instructor";
 $ck3_value = "Prof. Ram Rustagi";
 
 

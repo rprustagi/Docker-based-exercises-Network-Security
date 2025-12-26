@@ -1,11 +1,15 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import socket
 from scapy.all import *
+import sys
 
-ip = IP(src="172.21.4.5", dst="172.21.5.5")
+cnt=int(sys.argv[3])
+ip = IP(src=sys.argv[1], dst=sys.argv[2])
 udp = UDP(sport=9999, dport=9999)
 data = "The ping pong game\n"
 
 pkt = ip/udp/data
-while True:
+ii = 0;
+while ii < cnt:
   send(pkt, verbose=0)
+  ii = ii + 1
