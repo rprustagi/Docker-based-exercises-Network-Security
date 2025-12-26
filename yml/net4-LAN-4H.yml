@@ -6,9 +6,9 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    hostname: H1
     container_name: H1
-    privileged: true
     tty: true
     cap_add:
         - NET_ADMIN
@@ -19,7 +19,6 @@ services:
     command: >
       bash -c " 
       mkdir -p /tmp
-      && hostname H1
       && tail -f /dev/null "
 
   Host2:
@@ -27,9 +26,9 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    hostname: H2
     container_name: H2
-    privileged: true
     tty: true
     cap_add:
         - NET_ADMIN
@@ -40,7 +39,6 @@ services:
     command: >
       bash -c " 
       mkdir -p /tmp
-      && hostname H2
       && tail -f /dev/null "
 
   Host3:
@@ -48,9 +46,9 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    hostname: H3
     container_name: H3
-    privileged: true
     tty: true
     cap_add:
         - NET_ADMIN
@@ -61,7 +59,6 @@ services:
     command: >
       bash -c " 
       mkdir -p /tmp
-      && hostname H3
       && tail -f /dev/null "
 
   Host4:
@@ -69,9 +66,9 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    hostname: H4
     container_name: H4
-    privileged: true
     tty: true
     cap_add:
         - NET_ADMIN
@@ -82,7 +79,6 @@ services:
     command: >
       bash -c " 
       mkdir -p /tmp
-      && hostname H4
       && tail -f /dev/null "
 
 networks:

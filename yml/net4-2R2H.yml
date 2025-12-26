@@ -6,7 +6,7 @@ services:
       context: ../df
       dockerfile: ubuntu-router.df
       target: ubuntu-router
-    image: cns/ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
     container_name: R1
     privileged: true
     tty: true
@@ -34,7 +34,7 @@ services:
       context: ../df
       dockerfile: ubuntu-router.df
       target: ubuntu-router
-    image: cns/ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
     container_name: R2
     privileged: true
     tty: true
@@ -62,7 +62,7 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HA
     privileged: true
     tty: true
@@ -86,7 +86,7 @@ services:
       context: ../df
       dockerfile: ubuntu-host.df
       target: ubuntu-host
-    image: cns/ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HB
     privileged: true
     tty: true
