@@ -1,0 +1,69 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    hostname: web
+    networks:
+      net-lan:
+    expose: 
+      - "80"
+    command: >
+      bash -c "
+      apachectl start 
+      && tail -f /dev/null
+      "
+
+  echoserver:
+    build:
+      context: ../df
+      dockerfile: tcp-echo-server.df
+      target: tcp-echo-server
+    image: umbc/csee/cns/tcp-echo-server
+    hostname: echoserver
+    environment: 
+      - ECHO_PORT=5555 # Internal port for echo server
+    networks:
+      net-lan:
+
+  Loadbalancer:
+    build:
+      context: ../df
+      dockerfile: nginx-lb.df
+      target: nginx-lb
+    image: umbc/csee/cns/nginx-lb
+    networks:
+      net-lan:
+        ipv4_address: 172.21.46.254
+      net-int:
+        ipv4_address: 172.21.45.254
+    volumes:
+      - ./nginx_lb_web_echo.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - web
+      - echoserver
+    ports:
+      - "80:80"
+      - "9000:9000"
+    command: >
+      bash -c "
+      nginx 
+      && tail -f /dev/null
+      "
+
+networks:
+  net-int:
+    name: net4-45
+    ipam:
+      config:
+        - subnet: 172.21.45.0/24
+  net-lan:
+    name: net4-46
+    ipam:
+      config:
+        - subnet: 172.21.46.0/24
+

@@ -1,10 +1,8 @@
 # Dockerfile for creating docker image for
 # a python server program
 
-FROM python:3.11-slim
+FROM python:3.11-slim AS tcp-echo-server
 WORKDIR /app
-COPY ./Programs/tcp_echo_server.py /app
+COPY Programs/tcp_echo_server.py /app
 
-
-#ENTRYPOINT [ "python3" ]
 CMD ["python3", "tcp_echo_server.py" ]
