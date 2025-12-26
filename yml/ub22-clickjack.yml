@@ -1,0 +1,110 @@
+version: "3"
+
+services:
+  bank:
+    build:
+      context: ../df
+      dockerfile: ub22-clickjack.df
+      target: ub22-clickjack
+    image: umbc/csee/cns/ub22-clickjack
+    hostname: bank
+    container_name: bank
+    ports:
+      - "21580:80"
+      - "21522:22"
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      netcj:
+        ipv4_address: 172.21.45.5
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2 start
+      && tail -f /dev/null 
+      "
+
+  bank2:
+    build:
+      context: ../df
+      dockerfile: ub22-clickjack.df
+      target: ub22-clickjack
+    image: umbc/csee/cns/ub22-clickjack
+    hostname: bank2
+    container_name: bank2
+    ports:
+      - "21680:80"
+      - "21622:22"
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      netcj:
+        ipv4_address: 172.21.45.6
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2 start
+      && tail -f /dev/null
+      "
+
+  test:
+    build:
+      context: ../df
+      dockerfile: ub22-clickjack.df
+      target: ub22-clickjack
+    image: umbc/csee/cns/ub22-clickjack
+    hostname: test
+    container_name: test
+    ports:
+      - "21280:80"
+      - "21222:22"
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      netcj:
+        ipv4_address: 172.21.45.2
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2 start
+      && tail -f /dev/null
+      "
+
+  attacker:
+    build:
+      context: ../df
+      dockerfile: ub22-clickjack.df
+      target: ub22-clickjack
+    image: umbc/csee/cns/ub22-clickjack
+    hostname: attacker
+    container_name: attacker
+    ports:
+      - "21980:80"
+      - "21922:22"
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      netcj:
+        ipv4_address: 172.21.45.199
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2  start
+      && tail -f /dev/null
+      "
+
+networks:
+  netcj:
+    name: net4-45
+    ipam:
+      config:
+        - subnet: 172.21.45.0/24
+

@@ -4,5 +4,5 @@
 python3 Programs/chat_websocket_server.py &
 
 # Run Apache in the foreground to keep container alive
-apache2ctl start
+service apache2 start
 tail -f /dev/null

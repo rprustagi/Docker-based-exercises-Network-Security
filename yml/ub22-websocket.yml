@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  websocket:
+    build:
+      context: ../df
+      dockerfile: ub22-websocket.df
+      target: ub22-websocket
+    image: umbc/csee/cns/ub22-websocket
+    hostname: web
+    container_name: web
+    ports:
+      - "21580:80"
+      - "21522:22"
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      netcj:
+        ipv4_address: 172.21.45.5
+#    command: >
+#      bash -c " 
+#      mkdir -p /tmp
+#      && tail -f /dev/null 
+#      "
+
+networks:
+  netcj:
+    name: net4-45
+    ipam:
+      config:
+        - subnet: 172.21.45.0/24
+
