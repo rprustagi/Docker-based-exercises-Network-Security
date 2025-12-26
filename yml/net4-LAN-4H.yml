@@ -1,0 +1,94 @@
+version: "3"
+
+services:
+  Host1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: cns/ubuntu-host
+    container_name: H1
+    privileged: true
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      net4-0:
+        ipv4_address: 172.21.45.11
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && hostname H1
+      && tail -f /dev/null "
+
+  Host2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: cns/ubuntu-host
+    container_name: H2
+    privileged: true
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      net4-0:
+        ipv4_address: 172.21.45.12
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && hostname H2
+      && tail -f /dev/null "
+
+  Host3:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: cns/ubuntu-host
+    container_name: H3
+    privileged: true
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      net4-0:
+        ipv4_address: 172.21.45.13
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && hostname H3
+      && tail -f /dev/null "
+
+  Host4:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: cns/ubuntu-host
+    container_name: H4
+    privileged: true
+    tty: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      net4-0:
+        ipv4_address: 172.21.45.14
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && hostname H4
+      && tail -f /dev/null "
+
+networks:
+  net4-0:
+    name: net4-45
+    ipam:
+      config:
+        - subnet: 172.21.45.0/24
+
