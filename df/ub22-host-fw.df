@@ -1,0 +1,15 @@
+# Dockerfile for creating docker image for host in Firewall setup
+
+FROM umbc/csee/cns/ubuntu-host AS ub22-host-fw
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3-pip\
+    iptables conntrack\
+ && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --no-cache-dir PySocks
+
+COPY conf/000-default.conf /etc/apache2/sites-available/000-default.conf
+
+RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -print0 | xargs -0 -n1 sed -i 's/\r$//'
+

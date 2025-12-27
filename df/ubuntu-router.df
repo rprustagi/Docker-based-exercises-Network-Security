@@ -10,21 +10,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     iputils-ping mtr-tiny dnsutils \
     curl wget \
-    iptables \
+    iptables conntrack\
  && ln -sf /usr/bin/python3 /usr/local/bin/python \
  && rm -rf /var/lib/apt/lists/*
-
-#RUN apt-get update
-#RUN apt-get -y install vim nano
-#RUN apt-get -y install net-tools 
-#RUN apt-get -y install netcat-openbsd
-#RUN apt-get -y install tcpdump 
-#RUN apt-get -y install iproute2
-#RUN apt-get -y install python3
-#RUN apt-get -y install iputils-ping mtr-tiny dnsutils
-#RUN apt-get -y install curl wget
-#RUN apt-get -y install iptables
-#RUN rm -rf /var/lib/apt/lists/*
-
-#RUN ln -sf /usr/bin/python3 /usr/local/bin/python
 
