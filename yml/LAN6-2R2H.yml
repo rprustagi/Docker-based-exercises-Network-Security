@@ -1,0 +1,129 @@
+
+services:
+  Router1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R1N6
+    hostname: R1N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      net.ipv6.conf.all.forwarding: "1"
+    networks:
+      net6-1:
+        ipv6_address: fd00:1001::254
+      net6-2:
+        ipv6_address: fd00:1002::254
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1002::253
+      && tail -f /dev/null 
+      "
+
+  Router2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R2N6
+    hostname: R2N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      net.ipv6.conf.all.forwarding: "1"
+    networks:
+      net6-2:
+        ipv6_address: fd00:1002::253
+      net6-3:
+        ipv6_address: fd00:1003::253
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1002::254
+      && tail -f /dev/null 
+      "
+
+  Host1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: H1N6
+    hostname: H1N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net6-1:
+        ipv6_address: fd00:1001::5
+    ports:
+      - "8001:80"
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2 start
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1001::254
+      && tail -f /dev/null 
+      "
+
+  Host2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: H2N6
+    hostname: H2N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net6-3:
+        ipv6_address: fd00:1003::5
+    ports:
+      - "8082:80"
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && service apache2 start
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1003::253
+      && tail -f /dev/null 
+      "
+
+networks:
+  net6-1:
+    name: net6-1
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:1001::/64
+
+  net6-2:
+    name: net6-2
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:1002::/64
+
+  net6-3:
+    name: net6-3
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:1003::/64

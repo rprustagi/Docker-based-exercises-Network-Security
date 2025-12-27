@@ -1,0 +1,169 @@
+version: "3"
+
+services:
+  Router1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R1N64
+    hostname: R1N64
+    privileged: true
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      net.ipv4.ip_forward: "1"
+      net.ipv6.conf.all.forwarding: "1"
+    networks:
+      net6-1:
+        ipv6_address: fd00:1001::254
+      net4-1:
+        ipv4_address: 172.21.1.254
+    command: >
+        bash -c " 
+        mkdir -p /tmp
+        && ip -6 route del default
+        && ip route add 172.21.2.0/24 via 172.21.1.253 
+        && tail -f /dev/null 
+        "
+
+  Router2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R2N4
+    hostname: R2N4
+    tty: true
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    networks:
+      net4-1:
+        ipv4_address: 172.21.1.253
+      net4-2:
+        ipv4_address: 172.21.2.253
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && tail -f /dev/null 
+      "
+
+  Router3:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R3N64
+    hostname: R3N64
+    tty: true
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    sysctls:
+      net.ipv4.ip_forward: "1"
+      net.ipv6.conf.all.forwarding: "1"
+    networks:
+      net4-2:
+        ipv4_address: 172.21.2.252
+      net6-3:
+        ipv6_address: fd00:1003::252
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && ip -6 route del default
+      && ip route add 172.21.1.0/24 via 172.21.2.253 
+      && tail -f /dev/null 
+      "
+
+  Host1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: H1N6
+    hostname: H1N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net6-1:
+        ipv6_address: fd00:1001::5
+    ports:
+      - "80"
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1001::254
+      && service apache2 start 
+      && tail -f /dev/null 
+      "
+
+  Host2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: H2N6
+    hostname: H2N6
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net6-3:
+        ipv6_address: fd00:1003::5
+    ports:
+      - "8080:80"
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && ip -6 route del default
+      && ip -6 route add default via fd00:1003::252
+      && service apache2 start 
+      && tail -f /dev/null 
+      "
+
+networks:
+  net6-1:
+    name: net6-1
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:1001::/64
+
+  net4-1:
+    name: net4-1
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 172.21.1.0/24
+        - subnet: fd00:9999::/64
+
+  net4-2:
+    name: net4-2
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 172.21.2.0/24
+        - subnet: fd00:9998::/64
+
+  net6-3:
+    name: net6-3
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: fd00:1003::/64
