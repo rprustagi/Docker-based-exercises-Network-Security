@@ -1,0 +1,171 @@
+version: "3"
+
+services:
+  Router1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: R1
+    hostname: R1
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-45:
+        ipv4_address: 172.21.45.254
+      net4-46:
+        ipv4_address: 172.21.46.253
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.46.254
+      && /Programs/reorder_drop.py
+      && tail -f /dev/null
+      "
+
+  Router2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R2
+    hostname: R2
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-46:
+        ipv4_address: 172.21.46.254
+      net4-47:
+        ipv4_address: 172.21.47.254
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.46.253
+      && tail -f /dev/null
+      "
+
+  Host1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HA
+    hostname: HA
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-45:
+        ipv4_address: 172.21.45.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.45.254
+      && tail -f /dev/null
+      "
+
+  Host3:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HC
+    hostname: HC
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-45:
+        ipv4_address: 172.21.45.7
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.45.254
+      && tail -f /dev/null
+      "
+  Host2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HB
+    hostname: HB
+    ports:
+      - "80:80"
+      - "2222:22"
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-47:
+        ipv4_address: 172.21.47.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.47.254
+      && tail -f /dev/null
+      "
+
+  Host4:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HD
+    hostname: HD
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-47:
+        ipv4_address: 172.21.47.7
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.47.254
+      && tail -f /dev/null
+      "
+
+networks:
+  net4-45:
+    name: net4-45
+    ipam:
+      config:
+        - subnet: 172.21.45.0/24
+
+  net4-46:
+    name: net4-46
+    ipam:
+      config:
+        - subnet: 172.21.46.0/24
+
+  net4-47:
+    name: net4-47
+    ipam:
+      config:
+        - subnet: 172.21.47.0/24
+
