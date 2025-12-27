@@ -1,0 +1,303 @@
+version: "3"
+
+services:
+  Gateway:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: GW
+    hostname: GW
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-Net:
+        ipv4_address: 93.184.214.254
+      net4-DMZ:
+        ipv4_address: 172.21.4.253
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.4.254
+      && tail -f /dev/null
+      "
+
+  Firewall:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: FW
+    hostname: FW
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.4.254
+      net4-Servers:
+        ipv4_address: 192.168.3.254
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.4.253
+      && tail -f /dev/null
+      "
+
+  Net:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: Net
+    hostname: Net
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-Net:
+        ipv4_address: 93.184.214.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 93.184.214.254
+      && tail -f /dev/null
+      "
+
+  Home1:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: H1
+    hostname: H1
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.4.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.4.253
+      && ip route add 192.168.3.0/24 via 172.21.4.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Home2:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: H2
+    hostname: H2
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.4.6
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.4.253
+      && ip route add 192.168.3.0/24 via 172.21.4.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Home3:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: H3
+    hostname: H3
+    tty: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    networks:
+      net4-DMZ:
+        ipv4_address: 172.21.4.7
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.4.253
+      && ip route add 192.168.3.0/24 via 172.21.4.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Server1:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: S1
+    hostname: S1
+    tty: true
+    privileged: true
+    sysctls:
+      net.ipv4.ip_forward: "1"
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    networks:
+      net4-Servers:
+        ipv4_address: 192.168.3.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 192.168.3.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Server2:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: S2
+    hostname: S2
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    privileged: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    networks:
+      net4-Servers:
+        ipv4_address: 192.168.3.6
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 192.168.3.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Server3: 
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: S3
+    hostname: S3
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    privileged: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    networks:
+      net4-Servers:
+        ipv4_address: 192.168.3.7
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 192.168.3.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+  Server4:
+    build:
+      context: ../df
+      dockerfile: ub22-host-fw.df
+      target: ub22-host-fw
+    image: umbc/csee/cns/ub22-host-fw
+    container_name: S4
+    hostname: S4
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    devices:
+       - "/dev/net/tun:/dev/net/tun"
+    privileged: true
+    sysctls:
+      net.ipv4.ip_forward: "0"
+    networks:
+      net4-Servers:
+        ipv4_address: 192.168.3.8
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 192.168.3.254
+      && service ssh start
+      && tail -f /dev/null
+      "
+
+networks:
+  net4-Net:
+    name: net4-Net
+    ipam:
+      config:
+        - subnet: 93.184.214.0/24
+
+  net4-DMZ:
+    name: net4-DMZ
+    ipam:
+      config:
+        - subnet: 172.21.4.0/24
+
+  net4-Servers:
+    name: net4-Servers
+    ipam:
+      config:
+        - subnet: 192.168.3.0/24
