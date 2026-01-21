@@ -4,5 +4,6 @@
 FROM python:3.11-slim AS tcp-echo-server
 WORKDIR /app
 COPY Programs/tcp_echo_server.py /app
+RUN find /app -type f \( -name '*.py' -o -name '*.sh' \) -print0 | xargs -0 -n1 sed -i 's/\    r$//'
 
 CMD ["python3", "tcp_echo_server.py" ]
