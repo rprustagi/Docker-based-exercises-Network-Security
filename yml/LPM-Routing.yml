@@ -2,7 +2,11 @@ version: "3"
 
 services:
   R1:
-    image: rprustagi/arm64-router
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
     container_name: R1
     hostname: R1
     tty: true
@@ -31,7 +35,11 @@ services:
       "
 
   R2:
-    image: rprustagi/arm64-router
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
     container_name: R2
     hostname: R2
     tty: true
@@ -39,9 +47,9 @@ services:
       net.ipv4.ip_forward: "1"
       net.ipv4.conf.all.rp_filter: "0"
       net.ipv4.conf.default.rp_filter: "0"
-      net.ipv4.conf.eth0.rp_filter: "0"
-      net.ipv4.conf.eth1.rp_filter: "0"
-      net.ipv4.conf.eth2.rp_filter: "0"
+#      net.ipv4.conf.eth0.rp_filter: "0"
+#      net.ipv4.conf.eth1.rp_filter: "0"
+#      net.ipv4.conf.eth2.rp_filter: "0"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -68,7 +76,11 @@ services:
 # ip route add 172.21.5.160/27 via 172.21.3.22
 
   R3:
-    image: rprustagi/arm64-router
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
     container_name: R3
     hostname: R3
     tty: true
@@ -76,9 +88,9 @@ services:
       net.ipv4.ip_forward: "1"
       net.ipv4.conf.all.rp_filter: "0"
       net.ipv4.conf.default.rp_filter: "0"
-      net.ipv4.conf.eth0.rp_filter: "0"
-      net.ipv4.conf.eth1.rp_filter: "0"
-      net.ipv4.conf.eth2.rp_filter: "0"
+#      net.ipv4.conf.eth0.rp_filter: "0"
+#      net.ipv4.conf.eth1.rp_filter: "0"
+#      net.ipv4.conf.eth2.rp_filter: "0"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -105,7 +117,11 @@ services:
 # ip route add 172.21.7.0/26 via 172.21.3.18
 
   HA:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HA
     hostname: HA
     tty: true
@@ -123,7 +139,11 @@ services:
       "
 
   HB:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HB
     hostname: HB
     tty: true
@@ -141,7 +161,11 @@ services:
       "
 
   HC:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HC
     hostname: HC
     tty: true
@@ -161,7 +185,11 @@ services:
 # ip route add 172.21.7.0/26 via 172.21.6.2
 
   HD:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HD
     hostname: HD
     tty: true
@@ -185,7 +213,11 @@ services:
 # ip route add default via 172.21.5.190
 
   HE:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HE
     hostname: HE
     tty: true
@@ -209,7 +241,11 @@ services:
 # ip route add default via 172.21.7.2
 
   HF:
-    image: rprustagi/arm64-ub22-host
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
     container_name: HF
     hostname: HF
     tty: true
