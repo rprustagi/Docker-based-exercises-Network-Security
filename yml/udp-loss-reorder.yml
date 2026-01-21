@@ -25,7 +25,7 @@ services:
       mkdir -p /tmp
       && ip route delete default
       && ip route add default via 172.21.46.254
-      && /Programs/reorder_drop.py
+      && python3 /Programs/reorder_drop.py
       && tail -f /dev/null
       "
 
