@@ -1,0 +1,26 @@
+services:
+  postgres:
+    image: postgres:16
+    hostname: pgres
+    container_name: pgres
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: cmsc461
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: rprustagi@umbc.edu	
+      PGADMIN_DEFAULT_PASSWORD: admin
+    hostname: pgadmin
+    container_name: pgadmin
+    ports:
+      - "5050:80"
+volumes:
+  pgdata:
+    name: pgdata
