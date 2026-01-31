@@ -23,7 +23,8 @@ RUN mkdir -p /var/run/sshd /root/.ssh /usr/lib/cgi-bin /Programs \
 COPY html/ /var/www/html/
 COPY cgi-bin/ /usr/lib/cgi-bin/
 COPY Programs/ /Programs
-RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -print0 | xargs -0 -n1 sed -i 's/\    r$//'
+RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -exec sed -i 's/\r$//' {} +
+
 RUN a2enmod cgi
 
 EXPOSE 22

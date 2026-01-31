@@ -24,4 +24,4 @@ RUN a2enmod proxy_http
 RUN a2enmod proxy_wstunnel
 RUN a2enmod status
 
-CMD ["/usr/local/bin/start.sh"]
+CMD ["sh", "/usr/local/bin/start.sh"]
