@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   Host1:
     build:
