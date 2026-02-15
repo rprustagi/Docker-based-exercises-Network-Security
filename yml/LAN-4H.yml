@@ -8,6 +8,7 @@ services:
     hostname: H1
     container_name: H1
     tty: true
+    privileged: true
     cap_add:
         - NET_ADMIN
         - NET_RAW
@@ -28,6 +29,7 @@ services:
     hostname: H2
     container_name: H2
     tty: true
+    privileged: true
     cap_add:
         - NET_ADMIN
         - NET_RAW
@@ -48,6 +50,7 @@ services:
     hostname: H3
     container_name: H3
     tty: true
+    privileged: true
     cap_add:
         - NET_ADMIN
         - NET_RAW
@@ -68,6 +71,7 @@ services:
     hostname: H4
     container_name: H4
     tty: true
+    privileged: true
     cap_add:
         - NET_ADMIN
         - NET_RAW
