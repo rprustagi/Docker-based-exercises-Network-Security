@@ -8,9 +8,10 @@ services:
     container_name: R1
     hostname: R1
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "1"
-      net.ipv4.ip_no_pmtu_disc: "1"
+      net.ipv4.ip_no_pmtu_disc: "0"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -22,8 +23,8 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
+      && ip route delete default
       && ip route add 172.21.47.0/24 via 172.21.46.254
-      && ip link set dev eth0 mtu 1200
       && ip link set dev eth1 mtu 1200
       && tail -f /dev/null
       "
@@ -37,9 +38,10 @@ services:
     container_name: R2
     hostname: R2
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "1"
-      net.ipv4.ip_no_pmtu_disc: "1"
+      net.ipv4.ip_no_pmtu_disc: "0"
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -51,8 +53,8 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
+      && ip route delete default
       && ip route add 172.21.45.0/24 via 172.21.46.253
-      && ip link set dev eth0 mtu 800
       && ip link set dev eth1 mtu 800
       && tail -f /dev/null
       "
