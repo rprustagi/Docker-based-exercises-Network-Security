@@ -55,6 +55,7 @@ services:
       mkdir -p /tmp
       && ip route delete default
       && ip route add 172.21.45.0/24 via 172.21.46.253
+      && ip link set dev eth0 mtu 1200
       && ip link set dev eth1 mtu 800
       && tail -f /dev/null
       "
@@ -105,6 +106,7 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
+      && ip link set dev eth0 mtu 800
       && ip route add 172.21.45.0/24 via 172.21.47.254
       && tail -f /dev/null
       "
