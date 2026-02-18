@@ -18,8 +18,10 @@ services:
     networks:
       net4-45:
         ipv4_address: 172.21.45.254
+        interface_name: eth0
       net4-46:
         ipv4_address: 172.21.46.253
+        interface_name: eth1
     command: >
       bash -c "
       mkdir -p /tmp
@@ -48,8 +50,10 @@ services:
     networks:
       net4-46:
         ipv4_address: 172.21.46.254
+        interface_name: eth0
       net4-47:
         ipv4_address: 172.21.47.254
+        interface_name: eth1
     command: >
       bash -c "
       mkdir -p /tmp
@@ -72,6 +76,7 @@ services:
       - "45580:80"
       - "45522:22"
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -81,6 +86,7 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
+      && ip route delete default
       && ip route add 172.21.47.0/24 via 172.21.45.254
       && tail -f /dev/null
       "
@@ -97,6 +103,7 @@ services:
       - "47580:80"
       - "47522:22"
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -107,6 +114,7 @@ services:
       bash -c "
       mkdir -p /tmp
       && ip link set dev eth0 mtu 800
+      && ip route delete default
       && ip route add 172.21.45.0/24 via 172.21.47.254
       && tail -f /dev/null
       "
