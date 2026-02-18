@@ -18,17 +18,16 @@ services:
     networks:
       net4-45:
         ipv4_address: 172.21.45.254
-        interface_name: eth0
       net4-46:
         ipv4_address: 172.21.46.253
-        interface_name: eth1
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add 172.21.47.0/24 via 172.21.46.254
-      && ip link set dev eth1 mtu 1200
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add 172.21.47.0/24 via 172.21.46.254;
+      IFNAME=$$(ip route | grep 172.21.46.0 | awk '{print $$3}');
+      ip link set dev $$IFNAME mtu 1200;
+      tail -f /dev/null;
       "
 
   Router2:
@@ -56,12 +55,15 @@ services:
         interface_name: eth1
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add 172.21.45.0/24 via 172.21.46.253
-      && ip link set dev eth0 mtu 1200
-      && ip link set dev eth1 mtu 800
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add 172.21.45.0/24 via 172.21.46.253;
+      IF46=$$(ip route | grep 172.21.46.0 | awk '{print $$3}');
+      IF47=$$(ip route | grep 172.21.47.0 | awk '{print $$3}');
+      echo IF46 = $$IF46;
+      ip link set dev $$IF46 mtu 1200;
+      ip link set dev $$IF47 mtu 800;
+      tail -f /dev/null;
       "
 
   Host1:
@@ -85,10 +87,10 @@ services:
         ipv4_address: 172.21.45.5
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add 172.21.47.0/24 via 172.21.45.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add 172.21.47.0/24 via 172.21.45.254;
+      tail -f /dev/null;
       "
 
   Host2:
@@ -112,11 +114,11 @@ services:
         ipv4_address: 172.21.47.5
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip link set dev eth0 mtu 800
-      && ip route delete default
-      && ip route add 172.21.45.0/24 via 172.21.47.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip link set dev eth0 mtu 800;
+      ip route delete default;
+      ip route add 172.21.45.0/24 via 172.21.47.254;
+      tail -f /dev/null;
       "
 
 networks:
