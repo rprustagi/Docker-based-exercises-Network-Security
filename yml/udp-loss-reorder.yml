@@ -8,6 +8,7 @@ services:
     container_name: R1
     hostname: R1
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "0"
     cap_add:
@@ -23,9 +24,9 @@ services:
       mkdir -p /tmp
       && ip route delete default
       && ip route add default via 172.21.46.254
-      && python3 /Programs/reorder_drop.py
       && tail -f /dev/null
       "
+#      && python3 /Programs/reorder_drop.py
 
   Router2:
     build:
@@ -36,6 +37,7 @@ services:
     container_name: R2
     hostname: R2
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "1"
     cap_add:
