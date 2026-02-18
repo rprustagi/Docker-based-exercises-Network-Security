@@ -49,10 +49,8 @@ services:
     networks:
       net4-46:
         ipv4_address: 172.21.46.254
-        interface_name: eth0
       net4-47:
         ipv4_address: 172.21.47.254
-        interface_name: eth1
     command: >
       bash -c "
       mkdir -p /tmp;
