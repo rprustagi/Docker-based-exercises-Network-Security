@@ -8,6 +8,7 @@ services:
     container_name: R1
     hostname: R1
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "1"
     cap_add:
@@ -20,10 +21,10 @@ services:
         ipv4_address: 172.21.46.253
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.46.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.46.254;
+      tail -f /dev/null;
       "
 
   Router2:
@@ -35,6 +36,7 @@ services:
     container_name: R2
     hostname: R2
     tty: true
+    privileged: true
     sysctls:
       net.ipv4.ip_forward: "1"
     cap_add:
@@ -47,10 +49,10 @@ services:
         ipv4_address: 172.21.47.254
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.46.253
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.46.253;
+      tail -f /dev/null;
       "
 
   Host1:
@@ -62,6 +64,7 @@ services:
     container_name: HA
     hostname: HA
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -70,10 +73,10 @@ services:
         ipv4_address: 172.21.45.5
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.45.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.45.254;
+      tail -f /dev/null;
       "
 
   Host3:
@@ -85,6 +88,7 @@ services:
     container_name: HC
     hostname: HC
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -93,10 +97,10 @@ services:
         ipv4_address: 172.21.45.7
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.45.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.45.254;
+      tail -f /dev/null;
       "
   Host2:
     build:
@@ -110,6 +114,7 @@ services:
       - "80:80"
       - "2222:22"
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -118,10 +123,10 @@ services:
         ipv4_address: 172.21.47.5
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.47.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.47.254;
+      tail -f /dev/null;
       "
 
   Host4:
@@ -133,6 +138,7 @@ services:
     container_name: HD
     hostname: HD
     tty: true
+    privileged: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
@@ -141,10 +147,10 @@ services:
         ipv4_address: 172.21.47.7
     command: >
       bash -c "
-      mkdir -p /tmp
-      && ip route delete default
-      && ip route add default via 172.21.47.254
-      && tail -f /dev/null
+      mkdir -p /tmp;
+      ip route delete default;
+      ip route add default via 172.21.47.254;
+      tail -f /dev/null;
       "
 
 networks:
