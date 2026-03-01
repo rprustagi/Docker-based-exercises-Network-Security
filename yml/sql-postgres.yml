@@ -1,6 +1,10 @@
 services:
   postgres:
-    image: postgres:16
+    build:
+     context: ../df
+     dockerfile: postgres.df
+#    image: mypostgres
+#    image: postgres:16
     hostname: pgres
     container_name: pgres
     environment:
