@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     iputils-ping mtr-tiny dnsutils \
     curl wget \
     iptables conntrack\
+    iftop\
  && ln -sf /usr/bin/python3 /usr/local/bin/python \
  && rm -rf /var/lib/apt/lists/*
 
