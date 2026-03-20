@@ -78,14 +78,14 @@ services:
       && tail -f /dev/null
       "
 
-  Home1:
+  DMZ1:
     build:
       context: ../df
       dockerfile: ub22-host-fw.df
       target: ub22-host-fw
     image: umbc/csee/cns/ub22-host-fw
-    container_name: H1
-    hostname: H1
+    container_name: DS1
+    hostname: DS1
     tty: true
     sysctls:
       net.ipv4.ip_forward: "1"
@@ -107,14 +107,14 @@ services:
       && tail -f /dev/null
       "
 
-  Home2:
+  DMZ2:
     build:
       context: ../df
       dockerfile: ub22-host-fw.df
       target: ub22-host-fw
     image: umbc/csee/cns/ub22-host-fw
-    container_name: H2
-    hostname: H2
+    container_name: DS2
+    hostname: DS2
     tty: true
     sysctls:
       net.ipv4.ip_forward: "0"
@@ -136,14 +136,14 @@ services:
       && tail -f /dev/null
       "
 
-  Home3:
+  DMZ3:
     build:
       context: ../df
       dockerfile: ub22-host-fw.df
       target: ub22-host-fw
     image: umbc/csee/cns/ub22-host-fw
-    container_name: H3
-    hostname: H3
+    container_name: DS3
+    hostname: DS3
     tty: true
     sysctls:
       net.ipv4.ip_forward: "0"
