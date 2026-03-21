@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!-- # program generated using chatGPT on May 21, 2026 -->
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>WebSocket Demo</title>
+</head>
+<body>
+<h1>WebSocket Demo </h1>
+This web page provides a demo of two applications using websockets and shows two useful patterns.<br/>
+<ul>
+<li><strong>server push</strong>: server sends data periodically without client asking</li>
+<li><strong>broadcast</strong>: one server message goes to many clients</li>
+</ul>
+That makes it a good contrast with ordinary HTTP, where the browser usually has to poll.
+<br/>
+
+<ul>
+<li>First one is chat application, which works by opening a chat window.<br/>
+When a message is entered in one window, it will appear in chat windows of other browsers.<br/>
+This demo shows that a web server can push data to a browser without browser making an explicit request.</li>
+<li>
+The other demo simulates stock feed price. Periodically, it generates a number between 160 and 200 and sends as the stock price which is updated</li>
+</ul>
+<p>
+
+<h2>Live Stock Feed</h2>
+<div id="stock" style="border:1px solid green; height:100px; overflow:auto; padding:10px;">
+</div>
+
+<h2> Chat</h2>
+<div id="chat" style="border:1px solid black; height:100px; overflow:auto; padding:10px;">
+</div>
+
+<br>
+Name: <input type="text" id="name" value=""><br><br>
+Message: <input type="text" id="msg">
+<button onclick="send_msg()">Send</button>
+
+<script>
+  let proto = (location.protocol === "https:") ? "wss://" : "ws://";
+  let socket = new WebSocket(proto + location.host + "/ws/");
+
+  socket.onmessage = function(event) {
+    let data = JSON.parse(event.data);
+
+    if (data.type === "stock") {
+      let stockDiv = document.getElementById("stock");
+      stockDiv.innerHTML += `[${data.timestamp}] ${data.symbol}: $${data.price}<br>`;
+      stockDiv.scrollTop = stockDiv.scrollHeight;
+    }
+
+    else if (data.type === "chat") {
+      let chatDiv = document.getElementById("chat");
+      chatDiv.innerHTML += `[${data.timestamp}] ${data.message}<br>`;
+      chatDiv.scrollTop = chatDiv.scrollHeight;
+    }
+  };
+
+  function send_msg() {
+    let name = document.getElementById("name");
+    let msg = document.getElementById("msg");
+
+    if (msg.value.trim() !== "") {
+      socket.send(name.value + ": " + msg.value);
+      msg.value = "";
+    }
+  }
+</script>
+
+</body>
+</html>
