@@ -1,0 +1,190 @@
+services:
+  router:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: R1
+    privileged: true
+    hostname: R1
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  ha:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HA
+    privileged: true
+    hostname: HA
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  hb:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HB
+    hostname: HB
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  hc:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HC
+    hostname: HC
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  hd:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HD
+    hostname: HD
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  he:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HE
+    hostname: HE
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  hf:
+    build:
+      context: ../df
+      dockerfile: ubuntu-host.df
+      target: ubuntu-host
+    image: umbc/csee/cns/ubuntu-host
+    container_name: HF
+    hostname: HF
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    network_mode: none
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  s1:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: S1
+    hostname: S1
+    network_mode: none
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  s2:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: S2
+    hostname: S2
+    network_mode: none
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  s3:
+    build:
+      context: ../df
+      dockerfile: ubuntu-router.df
+      target: ubuntu-router
+    image: umbc/csee/cns/ubuntu-router
+    container_name: S3
+    hostname: S3
+    network_mode: none
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
