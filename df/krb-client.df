@@ -1,0 +1,19 @@
+# Dockerfile for creating docker image for kerberos systems in kerberos exercises
+
+FROM debian:12 as krb-client
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    vim \
+    krb5-user \
+    procps \
+    curl \
+    openssh-client \
+    dnsutils \
+    iputils-ping \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY conf/client-krb5.conf /etc/krb5.conf
+#---------------------------------------------------
+

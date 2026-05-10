@@ -1,0 +1,16 @@
+Port 22
+PermitRootLogin no
+
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+ChallengeResponseAuthentication no
+PubkeyAuthentication no
+
+GSSAPIAuthentication yes
+GSSAPIKeyExchange no
+GSSAPICleanupCredentials yes
+GSSAPIStrictAcceptorCheck no
+
+UsePAM no
+UseDNS no
+LogLevel DEBUG3

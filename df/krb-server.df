@@ -1,0 +1,25 @@
+# Dockerfile for creating docker image for kerberos systems in kerberos exercises
+
+FROM debian:12 as krb-server
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    vim \
+    openssh-server \
+    krb5-user \
+    procps \
+    openssh-client \
+    iputils-ping \
+    dnsutils \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY conf/server-krb5.conf /etc/krb5.conf
+COPY conf/server-sshd_config /etc/ssh/sshd_config
+COPY Scripts/krb-server-init.sh /server-init.sh
+
+RUN chmod +x /server-init.sh
+#CMD ["/kdc-init.sh"]
+#---------------------------------------------------
+
+
