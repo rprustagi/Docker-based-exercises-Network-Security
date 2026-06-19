@@ -15,7 +15,7 @@ df/     Dockerfiles and supporting files copied into Docker images
 yml/    Docker Compose files for individual lab topologies
 ```
 
-The Compose files can be used on Docker Desktop for Windows/macOS and on Linux systems. Some files may be architecture-specific; update the notes below if a file is intended for Apple Silicon/ARM64 or x86/AMD64.
+The Compose files can be used on Docker Desktop for Windows/macOS and on Linux systems.
 
 ---
 
@@ -82,20 +82,18 @@ The `df/` directory contains Dockerfiles used to build reusable images for the e
 
 | File | Brief Description | Typical Use |
 |---|---|---|
-| `hello.df` | Minimal or introductory Dockerfile. | Simple Docker image build demonstration. |
-| `krb-client.df` | Kerberos client image. | Kerberos authentication labs; runs tools such as `kinit`, `kvno`, and SSH client. |
+| `hello.df` | Iintroductory Dockerfile. | Simple Docker image build for environment test. |
+| `krb-client.df` | Kerberos Client image. | Kerberos authentication; runs tools such as `kinit`, `kvno`, and SSH client. |
 | `krb-kdc.df` | Kerberos Key Distribution Center image. | KDC/admin server for Kerberos realm experiments. |
-| `krb-server.df` | Kerberos-enabled server image. | SSH/GSSAPI or service-principal authentication labs. |
+| `krb-server.df` | Kerberos SSH server image. | SSH/GSSAPI or service-principal authentication labs. |
 | `nginx-lb.df` | Nginx-based load balancer image. | HTTP load balancing and reverse proxy exercises. |
 | `postgres.df` | PostgreSQL database image. | SQL and database connectivity exercises. |
 | `tcp-echo-server.df` | TCP echo server image. | Socket programming and TCP client/server labs. |
 | `ub22-clickjack.df` | Ubuntu 22 based image for clickjacking/web-security labs. | Clickjacking, CSP, iframe, X-Frame-Options demos. |
 | `ub22-host-fw.df` | Ubuntu 22 host/firewall image. | Firewall, iptables/nftables, host security labs. |
 | `ub22-websocket.df` | Ubuntu 22 websocket/web server image. | WebSocket chat, web security, and JavaScript-based demos. |
-| `ubuntu-host.df` | General Ubuntu host image with networking tools. | End hosts in most LAN/routing exercises. |
-| `ubuntu-router.df` | General Ubuntu router image with forwarding and network tools. | Router containers in multi-router topologies. |
-
-> Instructor note: Update this table with exact package lists, exposed ports, copied files, and image targets from each Dockerfile.
+| `ubuntu-host.df` | General Ubuntu host image |  End hosts in most networking and security exercises. |
+| `ubuntu-router.df` | General Ubuntu router image | Router containers in  networking and security exercises. |
 
 ---
 
@@ -107,9 +105,9 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 
 | File | Brief Description |
 |---|---|
-| `Description-builtin-style.html` | HTML example with built-in styling. |
+| `Description-builtin-style.html` | HTML example with inline CSS styling. |
 | `Description-external-css.html` | HTML example using external CSS. |
-| `style-dscr.css` | CSS file used by description/example pages. |
+| `style-dscr.css` | A Sample CSS file  |
 
 ## ARP, Spoofing, Sniffing, and Packet Manipulation
 
@@ -345,9 +343,9 @@ The `yml/` directory contains Docker Compose files. Each file defines a complete
 
 ---
 
-## Suggested Documentation Format for Each Lab
+##  Documentation  for Each Lab
 
-For every Compose file, consider adding a short section using the following template:
+For every Compose file,  a short section on its usage (TBD)
 
 ```markdown
 ## Lab: <compose-file-name>
@@ -377,7 +375,7 @@ ping <target-ip>
 tcpdump -i any -n
 ```
 
-### Suggested Experiments
+### Suggested Methodology for Experiential Learning exercises
 1. Predict what should happen.
 2. Run the commands.
 3. Observe packets using tcpdump/Wireshark.
@@ -452,9 +450,7 @@ nc -u <server-ip> 6000
 
 ---
 
-## Recommended README Improvements
-
-To make the repository easier for students and external users:
+##  README Improvements (TBD)
 
 - Add one paragraph for each Compose file explaining its learning goal.
 - Add a topology diagram or ASCII diagram for each major lab.
@@ -518,4 +514,4 @@ This repository is licensed under the Apache-2.0 License. See `LICENSE` for deta
 
 ## Maintainer Notes
 
-This README is intended as a template. Please update each file description as the corresponding Dockerfile, program, or Compose topology evolves.
+This README is intended as a basic help and overview on usage of docker files. Real learning will occur with actual network creation, implementation of exercises, observation of network behaviour and explanation of the behaviour.
