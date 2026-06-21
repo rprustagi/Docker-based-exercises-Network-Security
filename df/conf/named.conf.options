@@ -1,0 +1,17 @@
+options {
+    directory "/var/cache/bind";
+
+    recursion yes;
+    allow-query { any; };
+    allow-recursion { any; };
+
+    listen-on { any; };
+    listen-on-v6 { none; };
+
+    forwarders {
+        127.0.0.11;
+    };
+    forward only;
+
+    dnssec-validation no;
+};

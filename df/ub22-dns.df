@@ -1,0 +1,28 @@
+# Dockerfile for creating docker image for host in network exercises
+
+FROM ubuntu:22.04 AS ubuntu-host
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim nano \
+    bind9 bind9utils dnsutils \
+    net-tools netcat-openbsd tcpdump iproute2 \
+    python3 \
+    traceroute iputils-ping mtr-tiny dnsutils \
+    curl wget \
+ && ln -sf /usr/bin/python3 /usr/local/bin/python \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY conf/named.conf.options /etc/bind/named.conf.options
+COPY conf/named.conf.local /etc/bind/named.conf.local
+COPY conf/db.mynet.local.template /etc/bind/db.mynet.local.template
+
+COPY Programs/update-dns.sh Programs/update-dns.sh
+COPY Programs/start-dns.sh Programs/start-dns.sh
+RUN  chmod +x Programs/update-dns.sh
+RUN  chmod +x Programs/start-dns.sh
+
+EXPOSE 53/udp
+EXPOSE 53/tcp
+
+

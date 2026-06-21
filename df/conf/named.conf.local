@@ -1,0 +1,5 @@
+
+zone "mynet.local" {
+    type master;
+    file "/etc/bind/db.mynet.local";
+};

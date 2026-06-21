@@ -1,0 +1,30 @@
+
+$TTL 604800
+@   IN  SOA dns.mynet.local. admin.mynet.local. (
+        2026062001 ; Serial
+        604800     ; Refresh
+        86400      ; Retry
+        2419200    ; Expire
+        604800 )   ; Negative Cache TTL
+
+@       IN  NS      dns.mynet.local.
+
+dns     IN  A       172.21.X11.53
+
+c11     IN  A       172.21.X1.11
+c12     IN  A       172.21.X1.12
+
+c21     IN  A       172.21.X2.21
+c22     IN  A       172.21.X2.22
+
+br1     IN  A       172.21.X1.254
+br2     IN  A       172.21.X2.254
+
+bb-br1  IN  A       172.21.X9.253
+bb-br2  IN  A       172.21.X10.253
+bb-dns  IN  A       172.21.X11.253
+
+ts1     IN  A       172.21.X2.101
+ts2     IN  A       172.21.X2.102
+ws1     IN  A       172.21.X2.111
+ws2     IN  A       172.21.X2.112
