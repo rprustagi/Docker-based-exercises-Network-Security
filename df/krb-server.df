@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     dnsutils \
     netcat-openbsd \
+    tcpdump \
     && rm -rf /var/lib/apt/lists/*
 
 COPY conf/server-krb5.conf /etc/krb5.conf
