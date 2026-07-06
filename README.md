@@ -1,21 +1,18 @@
-# Docker-Based Exercises for Computer Networks and Security
-Here you will find docker compose files to implement various exercises related to Computer Network and Security. These exercises enables any learner to use the experiential learning, i.e., learn by doing it, to understand the key concepts in network and security
-
-All the docker compose files have extension .yml.
-
-These exercises can be carried out under Docker desktop of Windows, Macbook. Also, these can be carried out in Ubuntu (or any other Linux) based system.
-
+# Docker-Based Exercises for Computer Networks and Network Security
 
 This repository contains Docker-based laboratory exercises for teaching and learning Computer Networks and Network Security. The exercises are designed for experiential learning: students build a topology, run commands, observe packet behavior, and explain the result.
 
-The repository is organized around two main directories:
+Here you will find docker compose files to implement various exercises related to Computer Network and Network Security. These exercises enables any learner to use the experiential learning, i.e., learn by doing it, to understand the key concepts in network and security. Most of these exercises can be carried out under Docker desktop of Windows, Macbook. Also, these can be carried out in Ubuntu (or any other Linux) based system. Some exercises that require direct use of Linux kernel, for example, for Layer-2 networks, the exercise has to be done either in Linux laptop or inside a Linux VM on Windows/Macbook.
+
+All the docker compose files have extension .yml.
+
+
+The repository is organized around following directories:
 
 ```text
-df/     Dockerfiles and supporting files copied into Docker images
+df/     Dockerfiles and supporting files copied into Docker image. This has further subdirectories containing sample programs, scripts, configuration files etc.
 yml/    Docker Compose files for individual lab topologies
 ```
-
-The Compose files can be used on Docker Desktop for Windows/macOS and on Linux systems.
 
 ---
 
@@ -69,7 +66,7 @@ For each exercise, students should follow the following cycle:
 | `df/Scripts/` | Initialization and setup scripts copied into containers. |
 | `df/bin/` | Startup scripts used by selected images. |
 | `df/cgi-bin/` | CGI examples for web security and server-side scripting demonstrations. |
-| `df/clickjack/` | Clickjacking, iframe, CSP, and X-Frame-Options demo pages. |
+| `df/clickjack/` | To demonstrate Clickjacking attack |
 | `df/conf/` | Apache, Nginx, Kerberos, and SSH configuration files. |
 | `df/html/` | Static and dynamic web content for web, XSS, CSRF, cookie, JavaScript, and websocket labs. |
 | `yml/` | Docker Compose topologies for LANs, routers, firewall, ICMP, IPv6, VLAN, websocket, load balancing, and other exercises. |
@@ -82,7 +79,7 @@ The `df/` directory contains Dockerfiles used to build reusable images for the e
 
 | File | Brief Description | Typical Use |
 |---|---|---|
-| `hello.df` | Iintroductory Dockerfile. | Simple Docker image build for environment test. |
+| `hello.df` | Iintroductory Dockerfile. | Simple Docker image build for test docker desktop environment |
 | `krb-client.df` | Kerberos Client image. | Kerberos authentication; runs tools such as `kinit`, `kvno`, and SSH client. |
 | `krb-kdc.df` | Kerberos Key Distribution Center image. | KDC/admin server for Kerberos realm experiments. |
 | `krb-server.df` | Kerberos SSH server image. | SSH/GSSAPI or service-principal authentication labs. |
@@ -96,10 +93,6 @@ The `df/` directory contains Dockerfiles used to build reusable images for the e
 | `ubuntu-router.df` | General Ubuntu router image | Router containers in  networking and security exercises. |
 
 ---
-
-# `df/Programs/`: Program Files
-
-The `df/Programs/` directory contains Python scripts, shell scripts, and web files used inside the lab containers.
 
 ## Web/HTML/CSS Files
 
@@ -118,8 +111,8 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 | `fragment_spoof_udp.py` | UDP packet spoofing with fragmentation. |
 | `fragment_spoof_udp_overlap.py` | UDP fragmentation overlap demonstration. |
 | `sniff_display.py` | Packet sniffer that displays captured packet details. |
-| `sniff_simple.py` | Simple packet sniffer. |
-| `sniff_spoof_icmp.py` | ICMP sniffing/spoofing demonstration. |
+| `sniff_simple.py` | Simple packet sniffer using scapy. |
+| `sniff_spoof_icmp.py` | ICMP sniffing and spoofing demonstration. |
 | `spoof_icmp.py` | ICMP packet spoofing script. |
 | `spoof_icmp_redirect.py` | ICMP redirect spoofing script. |
 | `spoof_mac_udp.py` | UDP spoofing with MAC address manipulation. |
@@ -168,8 +161,8 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 |---|---|
 | `chat_websocket_server.py` | WebSocket chat server. |
 | `demo-ws.py` | WebSocket demonstration program. |
-| `socks_nc_client.py` | SOCKS/netcat-style client. |
-| `socks_web_client.py` | SOCKS/web client demonstration. |
+| `socks_nc_client.py` | a netcat client program using SOCKS5  |
+| `socks_web_client.py` | A web client program using SOCKS5 |
 | `tun0.py`, `tun1.py`, `tun2.py` | TUN interface examples. |
 | `tun_client.py` | Tunnel client program. |
 | `tun_server.py` | Tunnel server program. |
@@ -190,7 +183,6 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 | File | Brief Description |
 |---|---|
 | `create-interface.sh` | Creates or configures network interfaces. |
-| `create-interfaces.h` | Header/helper file for interface creation. Verify extension/name. |
 | `krb-kdc-init.sh` | Initializes Kerberos KDC services, principals, or realm data. |
 | `krb-server-init.sh` | Initializes Kerberos server configuration and keytabs. |
 | `vlans-create-bridge-if-inside-switch.sh` | Creates bridge interfaces inside VLAN switch containers. |
@@ -210,11 +202,11 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 
 | File | Brief Description |
 |---|---|
-| `badcgi.cgi` | CGI script intentionally demonstrating unsafe/bad CGI behavior. |
+| `badcgi.cgi` | CGI bash script intentionally demonstrating unsafe/bad CGI behavior. |
 | `badcgi.py` | Python version of bad CGI example. |
 | `cookiex.py` | Cookie-related CGI example. |
-| `goodcgi.cgi` | Safer CGI example. |
-| `goodcgi.py` | Python version of safer CGI example. |
+| `goodcgi.cgi` | CGI Bash script showing a working CGI example. |
+| `goodcgi.py` | Python version of good CGI example. |
 | `index.cgi` | CGI index/entry script. |
 
 ---
@@ -277,22 +269,22 @@ The `df/Programs/` directory contains Python scripts, shell scripts, and web fil
 
 | Path/File | Brief Description |
 |---|---|
-| `cookies/` | Cookie demonstration pages. |
-| `csrf/` | Cross-Site Request Forgery lab pages. |
+| `cookies/` | HTML/PHP pages to demonstrate how Cookie work. |
+| `csrf/` | HTML and php pages demonstrating Cross-Site Request Forgery Attack. |
 | `css/` | CSS files used by web labs. |
 | `forms/` | HTML form examples. |
 | `img/` | Image assets for web labs. |
 | `js/` | JavaScript files used by web labs. |
 | `mixed/` | Mixed content or mixed web demo files. |
-| `private/` | Private/protected content examples. |
-| `websocket/` | WebSocket client pages and related content. |
-| `xss/` | Cross-Site Scripting lab pages. |
-| `example.php` | PHP example page. |
+| `private/` | Private/protected content examples to demonstrate HTTP Authentication|
+| `websocket/` | Web content to demonstrate websocket |
+| `xss/` | HTML/PHP pages to demonstrate Cross-Site Scripting Attack. |
+| `example.php` | PHP example page to test PHP working.|
 | `examplejs.html` | JavaScript example page. |
-| `noperm.html` | Permission/access-control demonstration page. |
-| `pictures.html` | HTML page displaying images. |
+| `noperm.html` | A webpage to demonstrate status code 403 |
+| `pictures.html` | HTML page displaying multiple embedded images. |
 | `pictures.txt` | Text companion file for pictures demo. |
-| `welcome.html` | Welcome page. |
+| `welcome.html` | A simple web page to Welcome. |
 | `welcome.txt` | Text companion welcome file. |
 
 ---
@@ -314,8 +306,8 @@ The `yml/` directory contains Docker Compose files. Each file defines a complete
 |---|---|---|
 | `FW-3H3S1N.yml` | Firewall topology with three hosts, three servers, and one network/firewall node. | Firewall rules, filtering, NAT, host/server access control. |
 | `LAN-2R2H.yml` | LAN topology with two routers and two hosts. | Static routing, forwarding, multi-hop connectivity. |
-| `LAN-2R3H.yml` | LAN topology with two routers and three hosts. | Multi-host routing and reachability testing. |
-| `LAN-2R4H.yml` | LAN topology with two routers and four hosts. | Routing, subnetting, path verification. |
+| `LAN-2R3H.yml` | LAN topology with two routers and three hosts, each host on its own network. | Multi-host routing and reachability testing. |
+| `LAN-2R4H.yml` | LAN topology with two routers and four hosts. Two hosts per LAN| Routing, subnetting, path verification. |
 | `LAN-3R2H.yml` | LAN topology with three routers and two hosts. | Multi-router forwarding, route setup, traceroute analysis. |
 | `LAN-4H.yml` | Simple LAN with four hosts. | Same-subnet communication, ARP, broadcast behavior. |
 | `LAN6-2R2H.yml` | IPv6-only or IPv6-focused topology with two routers and two hosts. | IPv6 addressing, routing, ICMPv6. |
@@ -324,7 +316,7 @@ The `yml/` directory contains Docker Compose files. Each file defines a complete
 | `LB-web-echo.yml` | Load balancing topology for web and echo services. | Nginx load balancing, backend services, HTTP/TCP testing. |
 | `LPM-Routing.yml` | Longest Prefix Match routing topology. | Overlapping prefixes, route specificity, forwarding decisions. |
 | `Routing-Loop.yml` | Routing loop topology. | Default routes, loops, TTL expiration, ICMP Time Exceeded. |
-| `clickjack.yml` | Clickjacking/web-security topology. | Iframes, clickjacking, CSP, X-Frame-Options. |
+| `clickjack.yml` | Clickjacking attack topology. | Iframes, clickjacking, CSP, X-Frame-Options. |
 | `icmp-PMTU.yml` | ICMP Path MTU Discovery topology. | MTU, fragmentation, ICMP “fragmentation needed”. |
 | `icmp-redirect-analyse.yml` | ICMP Redirect analysis topology. | Legitimate ICMP redirects, route optimization, packet analysis. |
 | `icmp-redirect-attack.yml` | ICMP Redirect attack topology. | Malicious redirect, MITM, routing manipulation. |
@@ -345,21 +337,20 @@ The `yml/` directory contains Docker Compose files. Each file defines a complete
 
 ##  Documentation  for Each Lab
 
-For every Compose file,  a short section on its usage (TBD)
+TBD: For every Compose file,  write a short section on its usage
 
 ```markdown
 ## Lab: <compose-file-name>
 
 ### Purpose
-Briefly describe what this lab demonstrates.
+Briefly description of what this lab demonstrates.
 
 ### Topology
 List hosts, routers, servers, firewalls, and Docker networks.
 
-### Main Concepts
-- Concept 1
-- Concept 2
-- Concept 3
+### Learning Objectives
+- LO 1
+- LO 2
 
 ### How to Run
 ```bash
@@ -372,18 +363,17 @@ docker exec -it <container> bash
 ip addr
 ip route
 ping <target-ip>
-tcpdump -i any -n
 ```
 
 ### Suggested Methodology for Experiential Learning exercises
 1. Predict what should happen.
-2. Run the commands.
+2. Implement the network and run the commands.
 3. Observe packets using tcpdump/Wireshark.
 4. Explain the observed behavior.
 
 ### Cleanup
 ```bash
-docker compose -f <compose-file-name> down -v
+docker compose -f <compose-file-name> down --remove-orphans -v
 ```
 ```
 
@@ -401,12 +391,14 @@ List containers:
 
 ```bash
 docker ps
+docker ps -a
 ```
 
 Show IP addresses:
 
 ```bash
-ip addr
+ip -4 addr
+ip -6 addr
 ```
 
 Show routes:
@@ -419,11 +411,9 @@ ip -6 route
 Capture packets:
 
 ```bash
-tcpdump -i any -n
-tcpdump -i any -nn -e
-tcpdump -i any -n icmp
-tcpdump -i any -n tcp
-tcpdump -i any -n udp
+tcpdump -i eth0 -ne
+tcpdump -i any -nve icmp
+
 ```
 
 Test HTTP:
@@ -441,9 +431,12 @@ dig @<dns-server-ip> <name>
 Test TCP/UDP with netcat:
 
 ```bash
-nc -l -p 5000
-nc <server-ip> 5000
+- On the server
+nc -l -p 9999
+- On the client
+nc <server-ip> 9999
 
+- Netcat with UDP
 nc -u -l -p 6000
 nc -u <server-ip> 6000
 ```
@@ -453,11 +446,11 @@ nc -u <server-ip> 6000
 ##  README Improvements (TBD)
 
 - Add one paragraph for each Compose file explaining its learning goal.
-- Add a topology diagram or ASCII diagram for each major lab.
+- Add a topology diagram  for the lab.
 - Add a table of container names and IP addresses for every lab.
 - Add expected `ping`, `traceroute`, `curl`, `dig`, or `tcpdump` output.
 - Mark labs as Beginner, Intermediate, or Advanced.
-- Mention whether the lab requires Linux-specific privileges, Docker Desktop, or Apple Silicon changes.
+- Mention whether the lab requires Linux-specific privileges, Docker Desktop
 - Add cleanup commands for each exercise.
 - Add a troubleshooting section for common Docker/networking issues.
 
@@ -499,9 +492,8 @@ docker compose -f <file.yml> down -v
 Use:
 
 ```bash
-tcpdump -i any -nn -e
+tcpdump -i any -nne
 ```
-
 Use `-e` when Ethernet/VLAN headers are important.
 
 ---
