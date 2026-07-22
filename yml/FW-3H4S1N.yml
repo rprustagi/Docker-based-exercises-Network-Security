@@ -34,6 +34,7 @@ services:
     image: umbc/csee/cns/ubuntu-router
     container_name: FW
     hostname: FW
+    privileged: true
     tty: true
     sysctls:
       net.ipv4.ip_forward: "1"
