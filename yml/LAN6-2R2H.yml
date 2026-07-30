@@ -3,9 +3,9 @@ services:
   Router1:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R1N6
     hostname: R1N6
     tty: true
@@ -30,9 +30,9 @@ services:
   Router2:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R2N6
     hostname: R2N6
     tty: true
@@ -57,9 +57,9 @@ services:
   Host1:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: H1N6
     hostname: H1N6
     tty: true
@@ -83,9 +83,9 @@ services:
   Host2:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: H2N6
     hostname: H2N6
     tty: true

@@ -1,7 +1,7 @@
 # Dockerfile for creating docker image for
-# ubuntu-22, gcc, curl, wget, net-tools, iputils, python3, ssh
+# ubuntu-22, curl, wget, net-tools, iputils, python3, ssh
 
-FROM ubuntu:22.04 AS ubuntu-router
+FROM ubuntu:22.04 AS ub22-router
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \

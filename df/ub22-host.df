@@ -1,0 +1,40 @@
+# Dockerfile for creating docker image for host in network exercises
+
+FROM ubuntu:22.04 AS ub22-host
+ENV DEBIAN_FRONTEND=noninteractive
+
+#RUN sed -i 's|http://archive.ubuntu.com|https://archive.ubuntu.com|g; \
+#            s|http://security.ubuntu.com|https://security.ubuntu.com|g' \
+#        /etc/apt/sources.list.d/ubuntu.sources
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim nano \
+    net-tools netcat-openbsd tcpdump iproute2 \
+    python3 \
+    traceroute iputils-ping mtr-tiny dnsutils \
+    curl wget \
+    apache2 libapache2-mod-wsgi-py3 \
+    openssh-server rsync \
+    openssl \
+    ssl-cert \
+    hping3 scapy \
+    php libapache2-mod-php \
+ && ln -sf /usr/bin/python3 /usr/local/bin/python \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN mkdir -p /var/run/sshd /root/.ssh /usr/lib/cgi-bin /Programs \
+ && echo 'root:root' | chpasswd \
+ && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+COPY html/ /var/www/html/
+COPY cgi-bin/ /usr/lib/cgi-bin/
+COPY Programs/ /Programs
+RUN find /Programs -type f \( -name '*.py' -o -name '*.sh' \) -exec sed -i 's/\r$//' {} +
+
+RUN a2enmod cgi
+
+EXPOSE 22
+
+RUN ssh-keygen -t rsa -f /root/.ssh/id_rsa -q -N ""
+RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
+

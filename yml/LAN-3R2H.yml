@@ -2,9 +2,9 @@ services:
   Router1:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R1
     hostname: R1
     tty: true
@@ -28,9 +28,9 @@ services:
   Router2:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R2
     hostname: R2
     tty: true
@@ -55,9 +55,9 @@ services:
   Router3:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R3
     hostname: R3
     tty: true
@@ -80,9 +80,9 @@ services:
   Host1:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HA
     hostname: HA
     ports:
@@ -92,6 +92,10 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      - "HB:172.21.48.5"
+      - "R1:172.21.45.254"
+      - "R2:172.21.46.253"
     networks:
       net4-45:
         ipv4_address: 172.21.45.5
@@ -105,15 +109,19 @@ services:
   Host2:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HB
     hostname: HB
     tty: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      - "HA:172.21.45.5"
+      - "R1:172.21.48.254"
+      - "R2:172.21.47.253"
     networks:
       net4-48:
         ipv4_address: 172.21.48.5

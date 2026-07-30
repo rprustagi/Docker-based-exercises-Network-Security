@@ -2,9 +2,9 @@ services:
   Router1:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R1N64
     hostname: R1N64
     privileged: true
@@ -35,9 +35,9 @@ services:
   Router2:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R2N64
     hostname: R2N64
     tty: true
@@ -68,19 +68,15 @@ services:
   Host1:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: H1N64
     hostname: H1N64
     tty: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    extra_hosts:
-      - "H2N64:172.21.3.5"
-      - "R1N64:172.21.1.254"
-      - "R2N64:172.21.2.253"
     networks:
       net64-1:
         ipv4_address: 172.21.1.5
@@ -101,19 +97,15 @@ services:
   Host2:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: H2N64
     hostname: H2N64
     tty: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
-    extra_hosts:
-      - "H1N64:172.21.1.5"
-      - "R2N64:172.21.3.253"
-      - "R1N64:172.21.2.254"
     networks:
       net64-3:
         ipv4_address: 172.21.3.5

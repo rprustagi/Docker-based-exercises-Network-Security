@@ -1,0 +1,17 @@
+# Dockerfile for creating docker image for
+# ubuntu-24, curl, wget, net-tools, iputils, python3, ssh
+
+FROM ubuntu:24.04 AS ub24-router
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim nano \
+    net-tools netcat-openbsd tcpdump iproute2 \
+    python3 \
+    iputils-ping mtr-tiny dnsutils \
+    curl wget \
+    iptables conntrack\
+    iftop\
+ && ln -sf /usr/bin/python3 /usr/local/bin/python \
+ && rm -rf /var/lib/apt/lists/*
+

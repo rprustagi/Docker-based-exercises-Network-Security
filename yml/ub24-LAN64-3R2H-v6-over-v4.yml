@@ -2,9 +2,9 @@ services:
   Router1:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R1N64
     hostname: R1N64
     privileged: true
@@ -31,9 +31,9 @@ services:
   Router2:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R2N4
     hostname: R2N4
     tty: true
@@ -57,9 +57,9 @@ services:
   Router3:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R3N64
     hostname: R3N64
     tty: true
@@ -86,9 +86,9 @@ services:
   Host1:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: H1N6
     hostname: H1N6
     tty: true
@@ -112,9 +112,9 @@ services:
   Host2:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: H2N6
     hostname: H2N6
     tty: true

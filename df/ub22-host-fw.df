@@ -1,6 +1,6 @@
 # Dockerfile for creating docker image for host in Firewall setup
 
-FROM umbc/csee/cns/ubuntu-host AS ub22-host-fw
+FROM umbc/csee/cns/ub22-host AS ub22-host-fw
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y --no-install-recommends \

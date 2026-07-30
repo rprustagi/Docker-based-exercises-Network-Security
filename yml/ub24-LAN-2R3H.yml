@@ -1,10 +1,11 @@
+
 services:
   Router1:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R1
     hostname: R1
     tty: true
@@ -17,20 +18,23 @@ services:
       net4-45:
         ipv4_address: 172.21.45.254
       net4-46:
-        ipv4_address: 172.21.46.253
+        ipv4_address: 172.21.46.254
+      net4-48:
+        ipv4_address: 172.21.48.254
     command: >
       bash -c "
       mkdir -p /tmp
-      && ip route add 172.21.47.0/24 via 172.21.46.254
+      && ip route delete default
+      && ip route add default via 172.21.46.253
       && tail -f /dev/null
       "
 
   Router2:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R2
     hostname: R2
     tty: true
@@ -41,33 +45,32 @@ services:
       - NET_RAW
     networks:
       net4-46:
-        ipv4_address: 172.21.46.254
+        ipv4_address: 172.21.46.253
       net4-47:
         ipv4_address: 172.21.47.254
     command: >
       bash -c "
       mkdir -p /tmp
-      && ip route add 172.21.45.0/24 via 172.21.46.253
+      && ip route delete default
+      && ip route add default via 172.21.46.254
       && tail -f /dev/null
       "
 
   Host1:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: HA
     hostname: HA
-    ports:
-      - "45580:80"
-      - "45522:22"
     tty: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
     extra_hosts:
       - "HB:172.21.47.5"
+      - "HC:172.21.48.5"
       - "R1:172.21.45.254"
     networks:
       net4-45:
@@ -75,27 +78,26 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
-      && ip route add 172.21.47.0/24 via 172.21.45.254
+      && ip route delete default
+      && ip route add default via 172.21.45.254
       && tail -f /dev/null
       "
 
   Host2:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: HB
     hostname: HB
-    ports:
-      - "47580:80"
-      - "47522:22"
     tty: true
     cap_add:
       - NET_ADMIN
       - NET_RAW
     extra_hosts:
-      - "HB:172.21.45.5"
+      - "HA:172.21.45.5"
+      - "HC:172.21.48.5"
       - "R2:172.21.47.254"
     networks:
       net4-47:
@@ -103,7 +105,32 @@ services:
     command: >
       bash -c "
       mkdir -p /tmp
-      && ip route add 172.21.45.0/24 via 172.21.47.254
+      && ip route delete default
+      && ip route add default via 172.21.47.254
+      && tail -f /dev/null
+                     "
+
+
+  Host3:
+    build:
+      context: ../df
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
+    container_name: HC
+    hostname: HC
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    networks:
+      net4-48:
+        ipv4_address: 172.21.48.5
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && ip route delete default
+      && ip route add default via 172.21.48.254
       && tail -f /dev/null
       "
 
@@ -125,4 +152,10 @@ networks:
     ipam:
       config:
         - subnet: 172.21.47.0/24
+
+  net4-48:
+    name: net4-48
+    ipam:
+      config:
+        - subnet: 172.21.48.0/24
 
