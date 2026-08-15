@@ -2,9 +2,9 @@ services:
   R1:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R1
     hostname: R1
     tty: true
@@ -35,9 +35,9 @@ services:
   R2:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R2
     hostname: R2
     tty: true
@@ -76,9 +76,9 @@ services:
   R3:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R3
     hostname: R3
     tty: true
@@ -117,9 +117,9 @@ services:
   HA:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HA
     hostname: HA
     tty: true
@@ -139,9 +139,9 @@ services:
   HB:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HB
     hostname: HB
     tty: true
@@ -161,9 +161,9 @@ services:
   HC:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HC
     hostname: HC
     tty: true
@@ -185,9 +185,9 @@ services:
   HD:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HD
     hostname: HD
     tty: true
@@ -213,9 +213,9 @@ services:
   HE:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HE
     hostname: HE
     tty: true
@@ -241,9 +241,9 @@ services:
   HF:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HF
     hostname: HF
     tty: true

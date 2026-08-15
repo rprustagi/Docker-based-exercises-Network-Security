@@ -2,9 +2,9 @@ services:
   ha:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HA
     hostname: HA
     cap_add:
@@ -20,9 +20,9 @@ services:
   hc:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HC
     hostname: HC
     cap_add:
@@ -39,9 +39,9 @@ services:
   hb:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HB
     hostname: HB
     cap_add:
@@ -58,9 +58,9 @@ services:
   hd:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HD
     hostname: HD
     cap_add:
@@ -77,9 +77,9 @@ services:
   s1:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: S1
     hostname: S1
     network_mode: none
@@ -96,9 +96,9 @@ services:
   s2:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: S2
     hostname: S2
     network_mode: none

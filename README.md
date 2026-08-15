@@ -73,6 +73,43 @@ For each exercise, students should follow the following cycle:
 
 ---
 
+# `yml/`: Docker Compose Lab Files
+
+The `yml/` directory contains Docker Compose files. Each file defines a complete lab topology.
+
+| Compose File | Brief Description | Main Concepts |
+|---|---|---|
+| `FW-3H3S1N.yml` | Firewall topology with three hosts, three servers, and one network/firewall node. | Firewall rules, filtering, NAT, host/server access control. |
+| `LAN-2R2H.yml` | LAN topology with two routers and two hosts using ubuntu-22 based images | Static routing, forwarding, multi-hop connectivity. |
+| `LAN-2R3H.yml` | LAN topology with two routers and three hosts, each host on its own network; using ubuntu-22 based images | Multi-host routing and reachability testing. |
+| `LAN-2R4H.yml` | LAN topology with two routers and four hosts. Two hosts per LAN; using ubuntu-22 based images| Routing, subnetting, path verification. |
+| `LAN-3R2H.yml` | LAN topology with three routers and two hosts; using ubuntu-22 based images | Multi-router forwarding, route setup, traceroute analysis. |
+| `LAN-4H.yml` | Simple LAN with four hosts; using ubuntu-22 based images | Same-subnet communication, ARP, broadcast behavior. |
+| `LAN6-2R2H.yml` | IPv6-only or IPv6-focused topology with two routers and two hosts; using ubuntu-22 based images | IPv6 addressing, routing, ICMPv6. |
+| `LAN64-2R2H.yml` | Dual-stack IPv6/IPv4 topology with two routers and two hosts; using ubuntu-22 based images | IPv4 + IPv6 coexistence. |
+| `LAN64-3R2H-v6-over-v4.yml` | IPv6-over-IPv4 tunneling topology with three routers and two hosts; using ubuntu-22 based images | IPv6 tunneling over IPv4, protocol 41, dual stack. |
+| `LB-web-echo.yml` | Load balancing topology for web and echo services. | Nginx load balancing, backend services, HTTP/TCP testing. |
+| `LPM-Routing.yml` | Longest Prefix Match routing topology; using ubuntu-22 based images | Overlapping prefixes, route specificity, forwarding decisions. |
+| `Routing-Loop.yml` | Routing loop topology. | Default routes, loops, TTL expiration, ICMP Time Exceeded. |
+| `clickjack.yml` | Clickjacking attack topology. | Iframes, clickjacking, CSP, X-Frame-Options. |
+| `icmp-PMTU.yml` | ICMP Path MTU Discovery topology. | MTU, fragmentation, ICMP “fragmentation needed”. |
+| `icmp-redirect-analyse.yml` | ICMP Redirect analysis topology. | Legitimate ICMP redirects, route optimization, packet analysis. |
+| `icmp-redirect-attack.yml` | ICMP Redirect attack topology. | Malicious redirect, MITM, routing manipulation. |
+| `sql-postgres.yml` | PostgreSQL database lab topology. | Database server, client access, SQL practice. |
+| `udp-loss-reorder.yml` | UDP loss/reordering topology. | UDP unreliability, packet loss, reordering, delay. |
+| `vlans.yml` | VLAN topology. | VLAN isolation, trunking, inter-VLAN routing. |
+| `websocket.yml` | WebSocket lab topology. | WebSocket chat, browser clients, JavaScript/network security. |
+### Note: Each compose file with prefix "LAN-" uses ubuntu-22 images. There are corresponding ubuntu-24 based compose files which starts with the prefix "ub24-LAN-".
+---
+## Nginx Configuration Files in `yml/`
+
+| File | Brief Description |
+|---|---|
+| `nginx_lb_echo.conf` | Nginx configuration for load balancing echo-style backend services. |
+| `nginx_lb_web.conf` | Nginx configuration for HTTP web backend load balancing. |
+| `nginx_lb_web_echo.conf` | Nginx configuration for combined web and echo service load balancing. |
+
+---
 # `df/`: Dockerfiles and Image Definitions
 
 The `df/` directory contains Dockerfiles used to build reusable images for the exercises.
@@ -87,11 +124,14 @@ The `df/` directory contains Dockerfiles used to build reusable images for the e
 | `postgres.df` | PostgreSQL database image. | SQL and database connectivity exercises. |
 | `tcp-echo-server.df` | TCP echo server image. | Socket programming and TCP client/server labs. |
 | `ub22-clickjack.df` | Ubuntu 22 based image for clickjacking/web-security labs. | Clickjacking, CSP, iframe, X-Frame-Options demos. |
+| `ub22-dns.df` | Ubuntu 22 based image for DNS labs. | Configure RR Records for A, AAAA, MX, NS, TXT etc.|
+| `ub22-host.df` | Ubuntu 22 based host image |  End hosts in most networking and security exercises. Contains Apache2 WS, ssh, python3 with scapy, sample HTML files and python programs|
 | `ub22-host-fw.df` | Ubuntu 22 host/firewall image. | Firewall, iptables/nftables, host security labs. |
-| `ub22-websocket.df` | Ubuntu 22 websocket/web server image. | WebSocket chat, web security, and JavaScript-based demos. |
-| `ubuntu-host.df` | General Ubuntu host image |  End hosts in most networking and security exercises. |
-| `ubuntu-router.df` | General Ubuntu router image | Router containers in  networking and security exercises. |
-
+| `ub22-router.df` | Ubuntu 22 based router image | Router containers in  networking and security exercises. Contains iptables, iftop, python3 and basic network tools|
+| `ub22-websocket.df` | Ubuntu 22 websocket/web server image. | WebSocket , chat, web security, and JavaScript-based demos. |
+| `ub24-dns.df` | Ubuntu 24 based image for DNS labs. | Configure RR Records for A, AAAA, MX, NS, TXT etc.|
+| `ub24-host.df` | Ubuntu 24 based host image |  End hosts in most networking and security exercises. Contains Apache2 WS, ssh, python3 with scapy, sample HTML files and python programs|
+| `ub24-router.df` | Ubuntu 24 based router image | Router containers in  networking and security exercises. Contains iptables, iftop, python3 and basic network tools|
 ---
 
 ## Web/HTML/CSS Files
@@ -289,93 +329,12 @@ The `df/` directory contains Dockerfiles used to build reusable images for the e
 
 ---
 
-# `df/TBD/`: Work-in-Progress Dockerfiles
-
-| File | Brief Description |
-|---|---|
-| `arm64-ub22-mailserver.df` | ARM64 Ubuntu 22 mail server Dockerfile; likely used for SMTP/IMAP/POP3 mail labs. |
-| `arm64-ub22-webmail.df` | ARM64 Ubuntu 22 webmail Dockerfile; likely used for Roundcube/webmail labs. |
-
----
-
-# `yml/`: Docker Compose Lab Files
-
-The `yml/` directory contains Docker Compose files. Each file defines a complete lab topology.
-
-| Compose File | Brief Description | Main Concepts |
-|---|---|---|
-| `FW-3H3S1N.yml` | Firewall topology with three hosts, three servers, and one network/firewall node. | Firewall rules, filtering, NAT, host/server access control. |
-| `LAN-2R2H.yml` | LAN topology with two routers and two hosts. | Static routing, forwarding, multi-hop connectivity. |
-| `LAN-2R3H.yml` | LAN topology with two routers and three hosts, each host on its own network. | Multi-host routing and reachability testing. |
-| `LAN-2R4H.yml` | LAN topology with two routers and four hosts. Two hosts per LAN| Routing, subnetting, path verification. |
-| `LAN-3R2H.yml` | LAN topology with three routers and two hosts. | Multi-router forwarding, route setup, traceroute analysis. |
-| `LAN-4H.yml` | Simple LAN with four hosts. | Same-subnet communication, ARP, broadcast behavior. |
-| `LAN6-2R2H.yml` | IPv6-only or IPv6-focused topology with two routers and two hosts. | IPv6 addressing, routing, ICMPv6. |
-| `LAN64-2R2H.yml` | Dual-stack IPv6/IPv4 topology with two routers and two hosts. | IPv4 + IPv6 coexistence. |
-| `LAN64-3R2H-v6-over-v4.yml` | IPv6-over-IPv4 tunneling topology with three routers and two hosts. | IPv6 tunneling over IPv4, protocol 41, dual stack. |
-| `LB-web-echo.yml` | Load balancing topology for web and echo services. | Nginx load balancing, backend services, HTTP/TCP testing. |
-| `LPM-Routing.yml` | Longest Prefix Match routing topology. | Overlapping prefixes, route specificity, forwarding decisions. |
-| `Routing-Loop.yml` | Routing loop topology. | Default routes, loops, TTL expiration, ICMP Time Exceeded. |
-| `clickjack.yml` | Clickjacking attack topology. | Iframes, clickjacking, CSP, X-Frame-Options. |
-| `icmp-PMTU.yml` | ICMP Path MTU Discovery topology. | MTU, fragmentation, ICMP “fragmentation needed”. |
-| `icmp-redirect-analyse.yml` | ICMP Redirect analysis topology. | Legitimate ICMP redirects, route optimization, packet analysis. |
-| `icmp-redirect-attack.yml` | ICMP Redirect attack topology. | Malicious redirect, MITM, routing manipulation. |
-| `sql-postgres.yml` | PostgreSQL database lab topology. | Database server, client access, SQL practice. |
-| `udp-loss-reorder.yml` | UDP loss/reordering topology. | UDP unreliability, packet loss, reordering, delay. |
-| `vlans.yml` | VLAN topology. | VLAN isolation, trunking, inter-VLAN routing. |
-| `websocket.yml` | WebSocket lab topology. | WebSocket chat, browser clients, JavaScript/network security. |
-
-## Nginx Configuration Files in `yml/`
-
-| File | Brief Description |
-|---|---|
-| `nginx_lb_echo.conf` | Nginx configuration for load balancing echo-style backend services. |
-| `nginx_lb_web.conf` | Nginx configuration for HTTP web backend load balancing. |
-| `nginx_lb_web_echo.conf` | Nginx configuration for combined web and echo service load balancing. |
-
----
-
-##  Documentation  for Each Lab
-
-TBD: For every Compose file,  write a short section on its usage
-
-```markdown
-## Lab: <compose-file-name>
-
-### Purpose
-Briefly description of what this lab demonstrates.
-
-### Topology
-List hosts, routers, servers, firewalls, and Docker networks.
-
-### Learning Objectives
-- LO 1
-- LO 2
-
-### How to Run
-```bash
-docker compose -f <compose-file-name> up --build
-```
-
-### Basic Verification
-```bash
-docker exec -it <container> bash
-ip addr
-ip route
-ping <target-ip>
-```
-
-### Suggested Methodology for Experiential Learning exercises
-1. Predict what should happen.
-2. Implement the network and run the commands.
-3. Observe packets using tcpdump/Wireshark.
-4. Explain the observed behavior.
 
 ### Cleanup
 ```bash
 docker compose -f <compose-file-name> down --remove-orphans -v
 ```
-```
+
 
 ---
 
@@ -440,19 +399,6 @@ nc <server-ip> 9999
 nc -u -l -p 6000
 nc -u <server-ip> 6000
 ```
-
----
-
-##  README Improvements (TBD)
-
-- Add one paragraph for each Compose file explaining its learning goal.
-- Add a topology diagram  for the lab.
-- Add a table of container names and IP addresses for every lab.
-- Add expected `ping`, `traceroute`, `curl`, `dig`, or `tcpdump` output.
-- Mark labs as Beginner, Intermediate, or Advanced.
-- Mention whether the lab requires Linux-specific privileges, Docker Desktop
-- Add cleanup commands for each exercise.
-- Add a troubleshooting section for common Docker/networking issues.
 
 ---
 

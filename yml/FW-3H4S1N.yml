@@ -2,9 +2,9 @@ services:
   Gateway:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: GW
     hostname: GW
     tty: true
@@ -29,9 +29,9 @@ services:
   Firewall:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: FW
     hostname: FW
     privileged: true

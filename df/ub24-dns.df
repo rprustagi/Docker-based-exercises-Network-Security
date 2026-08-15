@@ -1,0 +1,55 @@
+# Minimal Ubuntu 24.04 DNS server with DNSSEC validation and DNS-over-TLS
+FROM ubuntu:24.04 AS ub24-dns
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+      bind9 \
+      bind9-utils \
+      ca-certificates \
+      curl \
+      dnsutils \
+      iproute2 \
+      iputils-ping \
+      nano \
+      openssl \
+ && rm -rf /var/lib/apt/lists/*
+
+# Create a self-signed certificate for DNS-over-TLS (replace in production).
+RUN install -d -m 0750 -o bind -g bind /etc/bind/tls \
+ && openssl req -x509 -newkey rsa:2048 -sha256 -nodes -days 3650 \
+      -subj "/CN=dns-server" \
+      -keyout /etc/bind/tls/server.key \
+      -out /etc/bind/tls/server.crt \
+ && chown bind:bind /etc/bind/tls/server.key /etc/bind/tls/server.crt \
+ && chmod 0600 /etc/bind/tls/server.key \
+ && chmod 0644 /etc/bind/tls/server.crt
+
+RUN printf '%s\n' \
+      'tls local-tls {' \
+      '    key-file "/etc/bind/tls/server.key";' \
+      '    cert-file "/etc/bind/tls/server.crt";' \
+      '};' \
+      '' \
+      'options {' \
+      '    directory "/var/cache/bind";' \
+      '    listen-on port 53 { any; };' \
+      '    listen-on-v6 port 53 { any; };' \
+      '    listen-on port 853 tls local-tls { any; };' \
+      '    listen-on-v6 port 853 tls local-tls { any; };' \
+      '    recursion yes;' \
+      '    allow-query { any; };' \
+      '    allow-recursion { any; };' \
+      '    dnssec-validation auto;' \
+      '    minimal-responses yes;' \
+      '};' \
+      > /etc/bind/named.conf.options \
+ && named-checkconf
+
+EXPOSE 53/udp 53/tcp 853/tcp
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD dig @127.0.0.1 cloudflare.com +dnssec +time=2 +tries=1 | grep -q 'status: NOERROR' || exit 1
+
+CMD ["/usr/sbin/named", "-g", "-u", "bind"]
