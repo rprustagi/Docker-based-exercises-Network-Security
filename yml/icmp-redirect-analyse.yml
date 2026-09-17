@@ -2,9 +2,9 @@ services:
   Old_Router:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R1
     hostname: R1
     privileged: true
@@ -33,9 +33,9 @@ services:
   New_Router:
     build:
       context: ../df
-      dockerfile: ubuntu-router.df
-      target: ubuntu-router
-    image: umbc/csee/cns/ubuntu-router
+      dockerfile: ub22-router.df
+      target: ub22-router
+    image: umbc/csee/cns/ub22-router
     container_name: R2
     hostname: R2
     privileged: true
@@ -61,9 +61,9 @@ services:
   Sender: 
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HA
     hostname: HA
     tty: true
@@ -90,9 +90,9 @@ services:
   Destination:
     build:
       context: ../df
-      dockerfile: ubuntu-host.df
-      target: ubuntu-host
-    image: umbc/csee/cns/ubuntu-host
+      dockerfile: ub22-host.df
+      target: ub22-host
+    image: umbc/csee/cns/ub22-host
     container_name: HB
     hostname: HB
     privileged: true

@@ -2,9 +2,9 @@ services:
   Old_Router:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R1
     hostname: R1
     privileged: true
@@ -33,9 +33,9 @@ services:
   New_Router:
     build:
       context: ../df
-      dockerfile: ub22-router.df
-      target: ub22-router
-    image: umbc/csee/cns/ub22-router
+      dockerfile: ub24-router.df
+      target: ub24-router
+    image: umbc/csee/cns/ub24-router
     container_name: R2
     hostname: R2
     privileged: true
@@ -59,9 +59,9 @@ services:
   Router_malicious:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: RX
     hostname: RX
     privileged: true
@@ -90,9 +90,9 @@ services:
   Host1: 
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: HA
     hostname: HA
     privileged: true
@@ -121,9 +121,9 @@ services:
   Destination:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: HB
     hostname: HB
     privileged: true
@@ -146,9 +146,9 @@ services:
   Attacker:
     build:
       context: ../df
-      dockerfile: ub22-host.df
-      target: ub22-host
-    image: umbc/csee/cns/ub22-host
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
     container_name: HX
     hostname: HX
     privileged: true
