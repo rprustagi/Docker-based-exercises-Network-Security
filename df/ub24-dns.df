@@ -8,8 +8,10 @@ RUN apt-get update \
       bind9 \
       bind9-utils \
       ca-certificates \
-      curl \
       dnsutils \
+      curl \
+      net-tools \
+      tcpdump \
       iproute2 \
       iputils-ping \
       nano \
@@ -48,8 +50,5 @@ RUN printf '%s\n' \
  && named-checkconf
 
 EXPOSE 53/udp 53/tcp 853/tcp
-
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD dig @127.0.0.1 cloudflare.com +dnssec +time=2 +tries=1 | grep -q 'status: NOERROR' || exit 1
 
 CMD ["/usr/sbin/named", "-g", "-u", "bind"]
