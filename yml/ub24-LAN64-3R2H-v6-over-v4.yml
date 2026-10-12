@@ -95,6 +95,8 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      H2N6: "fd00:1003::5"
     networks:
       net6-1:
         ipv6_address: fd00:1001::5
@@ -121,6 +123,8 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      H1N6: "fd00:1001::5"
     networks:
       net6-3:
         ipv6_address: fd00:1003::5
@@ -138,6 +142,7 @@ services:
 networks:
   net6-1:
     name: net6-1
+    enable_ipv4: false
     enable_ipv6: true
     ipam:
       config:
@@ -162,6 +167,7 @@ networks:
   net6-3:
     name: net6-3
     enable_ipv6: true
+    enable_ipv4: false
     ipam:
       config:
         - subnet: fd00:1003::/64

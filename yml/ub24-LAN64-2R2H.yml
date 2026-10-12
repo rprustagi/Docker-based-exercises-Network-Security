@@ -77,6 +77,9 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      H2N4: "172.21.3.5"
+      H2N6: "fd00:1003::5"
     networks:
       net64-1:
         ipv4_address: 172.21.1.5
@@ -106,6 +109,9 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
+    extra_hosts:
+      H1N4: "172.21.1.5"
+      H1N6: "fd00:1001::5"
     networks:
       net64-3:
         ipv4_address: 172.21.3.5
