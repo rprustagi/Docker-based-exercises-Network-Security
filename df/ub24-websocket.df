@@ -1,0 +1,33 @@
+# Dockerfile for creating docker image for
+# ubuntu-24, gcc, curl, wget, net-tools, iputils, python3, ssh
+
+FROM umbc/csee/cns/ub24-host AS ub24-websocket
+
+RUN apt update
+
+#RUN apt -y install python3-websockets
+#RUN apt -y install w3m
+RUN apt -y install python3-pip python3-venv w3m && \
+    python3 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --no-cache-dir "websockets>=10,<12"
+
+ENV PATH="/opt/venv/bin:$PATH"
+#RUN    apt -y install python3-pip w3m && \
+#    python3 -m pip install --no-cache-dir "websockets>=10,<12"
+
+COPY bin/venv-start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+RUN echo '<Location "/server-status">' >>/etc/apache2/apache2.conf
+RUN echo '  SetHandler server-status' >>/etc/apache2/apache2.conf
+RUN echo '  Require local' >>/etc/apache2/apache2.conf
+RUN echo '</Location>' >>/etc/apache2/apache2.conf
+COPY conf/000-proxy.conf /etc/apache2/sites-available/000-default.conf
+
+RUN a2enmod cgi
+RUN a2enmod proxy
+RUN a2enmod proxy_http
+RUN a2enmod proxy_wstunnel
+RUN a2enmod status
+
+CMD ["sh", "/usr/local/bin/start.sh"]

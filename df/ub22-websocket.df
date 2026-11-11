@@ -1,8 +1,7 @@
 # Dockerfile for creating docker image for
 # ubuntu-22, gcc, curl, wget, net-tools, iputils, python3, ssh
 
-#FROM ubuntu
-FROM umbc/csee/cns/ubuntu-host AS ub22-websocket
+FROM umbc/csee/cns/ub22-host AS ub22-websocket
 
 RUN apt update
 

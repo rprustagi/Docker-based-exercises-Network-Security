@@ -1,0 +1,173 @@
+services:
+  kdc:
+    build:
+      context: ../df
+      dockerfile: krb-kdc.df
+      target: krb-kdc
+    image: umbc/csee/cns/krb-kdc
+    container_name: krb-kdc
+    hostname: krb-kdc
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.101
+        aliases:
+          - kdc.csee.umbc.test
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  server1:
+    build:
+      context: ../df
+      dockerfile: krb-server.df
+      target: krb-server
+    image: umbc/csee/cns/krb-server
+    container_name: krb-server1
+    hostname: krb-server1
+    depends_on:
+      - kdc
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.111
+        aliases:
+          - server1.csee.umbc.test
+    ports:
+      - "2211:22"
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  server2:
+    build:
+      context: ../df
+      dockerfile: krb-server.df
+      target: krb-server
+    image: umbc/csee/cns/krb-server
+    container_name: krb-server2
+    hostname: krb-server2
+    depends_on:
+      - kdc
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.112
+        aliases:
+          - server2.csee.umbc.test
+    ports:
+      - "2212:22"
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  client1:
+    build:
+      context: ../df
+      dockerfile: krb-client.df
+      target: krb-client
+    image: umbc/csee/cns/krb-client
+    container_name: krb-client1
+    hostname: krb-client1
+    depends_on:
+      - kdc
+      - server1
+      - server2
+      - ws1
+      - ws2
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.121
+        aliases:
+          - client1.csee.umbc.test
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  client2:
+    build:
+      context: ../df
+      dockerfile: krb-client.df
+      target: krb-client
+    image: umbc/csee/cns/krb-client
+    container_name: krb-client2
+    hostname: krb-client2
+    depends_on:
+      - kdc
+      - server1
+      - server2
+      - ws1
+      - ws2
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.122
+        aliases:
+          - client2.csee.umbc.test
+    stdin_open: true
+    tty: true
+    command: >
+      bash -c "
+      mkdir -p /tmp
+      && sleep infinity
+      "
+
+  ws1:
+    build:
+      context: ../df
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
+    hostname: ws1
+    container_name: ws1
+    tty: true
+    privileged: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.131
+        aliases:
+          - ws1.csee.umbc.test
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && tail -f /dev/null "
+
+  ws2:
+    build:
+      context: ../df
+      dockerfile: ub24-host.df
+      target: ub24-host
+    image: umbc/csee/cns/ub24-host
+    hostname: ws1
+    container_name: ws2
+    tty: true
+    privileged: true
+    cap_add:
+        - NET_ADMIN
+        - NET_RAW
+    networks:
+      kerberos-net:
+        ipv4_address: 172.21.90.132
+        aliases:
+          - ws2.csee.umbc.test
+    command: >
+      bash -c " 
+      mkdir -p /tmp
+      && tail -f /dev/null "
+
+networks:
+  kerberos-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.90.0/24
+

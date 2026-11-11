@@ -8,11 +8,8 @@ if [ ! -f /var/lib/krb5kdc/principal ]; then
     kdb5_util create -s -P masterpassword
 
     echo "Creating user principals..."
-    # two sample users alice, bob are created. Create more users as needed.
-    # database information is maintained locally (network not needed)
+    # first create the admin 
     kadmin.local -q "addprinc -pw adminpassword admin/admin"
-    # for each user create the principal as below
-    # kadmin.local -q "addprinc -pw alicepassword alice"
 
     echo "Creating SSH host principal..."
     # A sample service (ssh server) is created. Add more as needed.
@@ -27,4 +24,14 @@ krb5kdc
 echo "Starting Kerberos admin server..."
 #kadmind -nofork
 kadmind
+
+# two sample users alice, bob are created. Create more users as needed.
+# database information is maintained locally (network not needed)
+# for each user create the principal as below
+kadmin.local -q "addprinc -pw alicepassword alice"
+kadmin.local -q "addprinc -pw bobpassword bob"
+
+# list all principals
+kadmin.local -q "listprincs"
+
 

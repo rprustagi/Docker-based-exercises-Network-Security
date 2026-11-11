@@ -1,4 +1,4 @@
-k#!/usr/bin/env python3
+#!/usr/bin/env python3
 # ensure that output of 'sysctl net.ipv4.ip_forward'  should be zero.
 # set this value to zero by following command. NO SPACE before and after '=' sign.
 # sysctl -w net.ipv4.ip_forward=0
